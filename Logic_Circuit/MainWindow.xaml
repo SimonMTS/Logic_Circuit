@@ -1,0 +1,14 @@
+﻿<Window x:Class="Logic_Circuit.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Logic_Circuit"
+        mc:Ignorable="d"
+        Title="Logic_Circuit" Height="450" Width="800">
+    <Grid>
+        <Grid Margin="10" Grid.Row="1" Grid.Column="1">
+            <Button x:Name="button" Click="SelectFile" Content="Select an input file..." HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="150" Height="22"/>
+        </Grid>
+    </Grid>
+</Window>
