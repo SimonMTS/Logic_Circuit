@@ -61,7 +61,7 @@ namespace Logic_Circuit.Parser
 
         private static void AddNode( string[] parsedLine, Circuit circuit )
         {
-            if ( parsedLine[0].StartsWith("NODE") )
+            if ( !parsedLine[1].Contains("PROBE") && !parsedLine[1].Contains("INPUT"))
             {
                 CircuitNode node = new CircuitNode()
                 {
@@ -75,6 +75,7 @@ namespace Logic_Circuit.Parser
             {
                 if ( parsedLine[1].StartsWith("INPUT") )
                 {
+                    Console.WriteLine(parsedLine);
                     InputNode node = new InputNode()
                     {
                         Name = parsedLine[0],

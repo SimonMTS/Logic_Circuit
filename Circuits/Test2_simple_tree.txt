@@ -1,0 +1,21 @@
+# Full-adder. Deze file bevat een correct circuit
+# 
+#
+#
+# Description of all the nodes
+#
+A:	INPUT_HIGH;
+B:	INPUT_HIGH;
+C:	INPUT_LOW;
+S1:	PROBE;
+S2:	PROBE;
+NODE1:	NAND;
+
+#
+#
+# Description of all the edges
+#
+A:	NODE1;
+B:	NODE1;
+NODE1:	S1;
+C:	S2

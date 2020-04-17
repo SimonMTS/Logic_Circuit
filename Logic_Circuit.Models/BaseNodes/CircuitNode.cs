@@ -19,11 +19,25 @@ namespace Logic_Circuit.Models.BaseNodes
             {
                 return !(Inputs[0].Process() && Inputs[1].Process());
             }
-            else
+
+            if (Type.Equals("NOT"))
             {
-                /*throw new NotImplementedException();*/
-                return false;
+                return !Inputs[0].Process();
             }
+
+            if (Type.Equals("OR"))
+            {
+                return Inputs[0].Process() || Inputs[1].Process();
+            }
+
+            if (Type.Equals("AND"))
+            {
+                return Inputs[0].Process() && Inputs[1].Process();
+            }
+
+
+            /*throw new NotImplementedException();*/
+            return false;
         }
     }
 }
