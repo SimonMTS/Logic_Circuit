@@ -18,4 +18,4 @@ NODE1:	NAND;
 A:	NODE1;
 B:	NODE1;
 NODE1:	S1;
-C:	S2
+C:	S2;

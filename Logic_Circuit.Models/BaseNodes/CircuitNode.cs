@@ -27,12 +27,28 @@ namespace Logic_Circuit.Models.BaseNodes
 
             if (Type.Equals("OR"))
             {
-                return Inputs[0].Process() || Inputs[1].Process();
+                foreach (INode input in Inputs)
+                {
+                    if (input.Process())
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
             }
 
             if (Type.Equals("AND"))
             {
-                return Inputs[0].Process() && Inputs[1].Process();
+                foreach (INode input in Inputs)
+                {
+                    if (!input.Process())
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
             }
 
 

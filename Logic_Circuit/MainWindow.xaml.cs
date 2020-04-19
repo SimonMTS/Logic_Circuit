@@ -35,18 +35,26 @@ namespace Logic_Circuit
             dlg.DefaultExt = ".txt";
             dlg.Filter = "TXT Files (*.txt)|*.txt";
 
-            Nullable<bool> success = dlg.ShowDialog();
+            bool? success = dlg.ShowDialog();
 
             if (success == true)
             {
                 string content = File.ReadAllText(dlg.FileName);
 
-                Circuit c = Parse.Try( content );
+                (bool, Circuit, string) c = Parse.Try( content );
 
-                ResultWindow result = new ResultWindow( c );
-                App.Current.MainWindow = result;
-                this.Close();
-                result.Show();
+                if (c.Item1)
+                {
+                    ResultWindow result = new ResultWindow(c.Item2);
+                    App.Current.MainWindow = result;
+                    this.Close();
+                    result.Show();
+                }
+                else
+                {
+                    Console.WriteLine(c.Item3);
+                    textBlock.Text = c.Item3;
+                }
             }
         }
     }

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic_Circuit.Models", "Log
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Internal_Circuits", "Internal_Circuits", "{F7B75E56-6392-48D9-B063-8ABDAA9CF8EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic_Circuit.Controllers", "Logic_Circuit.Controllers\Logic_Circuit.Controllers.csproj", "{2B08A191-8B3D-4760-A7E4-CAA1A281C2D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{91383CDA-8084-41DB-9DB6-224BDC6BD4AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91383CDA-8084-41DB-9DB6-224BDC6BD4AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91383CDA-8084-41DB-9DB6-224BDC6BD4AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B08A191-8B3D-4760-A7E4-CAA1A281C2D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B08A191-8B3D-4760-A7E4-CAA1A281C2D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B08A191-8B3D-4760-A7E4-CAA1A281C2D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B08A191-8B3D-4760-A7E4-CAA1A281C2D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -102,6 +102,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Logic_Circuit.Controllers\Logic_Circuit.Controllers.csproj">
+      <Project>{2b08a191-8b3d-4760-a7e4-caa1a281c2d6}</Project>
+      <Name>Logic_Circuit.Controllers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Logic_Circuit.Models\Logic_Circuit.Models.csproj">
       <Project>{91383CDA-8084-41DB-9DB6-224BDC6BD4AA}</Project>
       <Name>Logic_Circuit.Models</Name>
