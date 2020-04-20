@@ -10,6 +10,7 @@ namespace Logic_Circuit.Models.BaseNodes
     {
         public string Name { get; set; }
         public string Type { get; set; }
+        public Circuit Circuit { get; set; }
 
         public List<INode> Inputs { get; set; } = new List<INode>();
 
@@ -17,19 +18,9 @@ namespace Logic_Circuit.Models.BaseNodes
         {
             if ( Type.Equals("NAND") )
             {
-                return !(Inputs[0].Process() && Inputs[1].Process());
-            }
-
-            if (Type.Equals("NOT"))
-            {
-                return !Inputs[0].Process();
-            }
-
-            if (Type.Equals("OR"))
-            {
                 foreach (INode input in Inputs)
                 {
-                    if (input.Process())
+                    if (!input.Process())
                     {
                         return true;
                     }
@@ -38,22 +29,30 @@ namespace Logic_Circuit.Models.BaseNodes
                 return false;
             }
 
-            if (Type.Equals("AND"))
+            if (Inputs.Count <= Circuit.InputNodes.Count)
             {
-                foreach (INode input in Inputs)
+                Circuit.Reset();
+
+                bool[] inputValues = new bool[Inputs.Count];
+                for (int i = 0; i < Inputs.Count; i++)
                 {
-                    if (!input.Process())
-                    {
-                        return false;
-                    }
+                    inputValues[i] = Inputs[i].Process();
                 }
 
-                return true;
+                int j = 0;
+                foreach (InputNode node in Circuit.InputNodes.Values)
+                {
+                    if (inputValues.Length <= j) break;
+
+                    node.Value = inputValues[j];
+                    j++;
+                }
+
+                return Circuit.OutputNodes.Values.First().Process();
             }
 
 
-            /*throw new NotImplementedException();*/
-            return false;
+            throw new NotImplementedException();
         }
     }
 }

@@ -53,7 +53,7 @@ namespace Logic_Circuit
                 Width = 80,
                 Height = 80,
                 Margin = new Thickness(50 + (200 * depth), 50 + (150 * depthCounter[depth]) + (depth % 2 == 0 ? 0 : 80), 5, 5),
-                Content = (node is CircuitNode ? ((CircuitNode)node).Type : node.Name),
+                Content = (node is CircuitNode ? node.Name + "\n(" + ((CircuitNode)node).Type + ")" : node.Name),
                 Name = node.Name,
                 Tag = (depthCounter[depth], depth),
                 Background = controller.GetColor(node.Process()),
@@ -85,8 +85,8 @@ namespace Logic_Circuit
             Point startPoint = new Point(btn1Point.X + inputbtn.ActualWidth, btn1Point.Y + inputbtn.ActualHeight / 2);
             Point endPoint = new Point(btn2Point.X, btn2Point.Y + outputbtn.ActualHeight / 2);
 
-            int offset = 0;// (((int)((ValueTuple<int, int>)inputbtn.Tag).Item1) % 2 != 0 ? (((int)((ValueTuple<int, int>)inputbtn.Tag).Item1) * 2) : (((int)((ValueTuple<int, int>)inputbtn.Tag).Item1) - 1) * 2 * -1);
-            int extraOffset = 0;// ((int)((ValueTuple<int, int>)inputbtn.Tag).Item2) % 2 == 0 ? -15 : 0;
+            int offset = (((int)((ValueTuple<int, int>)inputbtn.Tag).Item1) % 2 != 0 ? (((int)((ValueTuple<int, int>)inputbtn.Tag).Item1) * 2) : (((int)((ValueTuple<int, int>)inputbtn.Tag).Item1) - 1) * 2 * -1);
+            int extraOffset = ((int)((ValueTuple<int, int>)inputbtn.Tag).Item2) % 2 == 0 ? -15 : 0;
 
             int prevLines = 0;
             while (((Line)LogicalTreeHelper.FindLogicalNode(Canvas, inputbtn.Name + "line1_" + prevLines)) != null)
@@ -193,6 +193,14 @@ namespace Logic_Circuit
             Button btn = (Button)sender;
 
             controller.OnButtonClick(btn.Name, this);
+        }
+
+        public void SpawnNew(Circuit circuit)
+        {
+            ResultWindow result = new ResultWindow(circuit);
+            result.SizeToContent = SizeToContent.WidthAndHeight;
+            App.Current.MainWindow = result;
+            result.Show();
         }
 
         public void ClearCanvas()

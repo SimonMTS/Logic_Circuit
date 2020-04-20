@@ -174,14 +174,12 @@ namespace Logic_Circuit.Controllers
             {
                 Circuit.InputNodes[nodeName].Value = !Circuit.InputNodes[nodeName].Value;
 
-                /*window.ClearCanvas();
-                DrawButtons(this.Circuit, window);
-
-                */
                 window.UpdateCanvas(Circuit);
-                /*DrawLines(window);*/
+            }
 
-
+            if (node is CircuitNode && ((CircuitNode)node).Type != "NAND")
+            {
+                window.SpawnNew(((CircuitNode)node).Circuit);
             }
         }
 
@@ -198,4 +196,6 @@ public interface IResultWin
     void ClearCanvas();
 
     void UpdateCanvas(Circuit circuit);
+
+    void SpawnNew(Circuit circuit);
 }

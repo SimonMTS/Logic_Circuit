@@ -9,9 +9,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic_Circuit.Parser", "Log
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic_Circuit.Models", "Logic_Circuit.Models\Logic_Circuit.Models.csproj", "{91383CDA-8084-41DB-9DB6-224BDC6BD4AA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Internal_Circuits", "Internal_Circuits", "{F7B75E56-6392-48D9-B063-8ABDAA9CF8EB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic_Circuit.Controllers", "Logic_Circuit.Controllers\Logic_Circuit.Controllers.csproj", "{2B08A191-8B3D-4760-A7E4-CAA1A281C2D6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7BA24583-9653-4D60-AA0D-03E8881F662A}"
+	ProjectSection(SolutionItems) = preProject
+		Internal_Circuits\AND.txt = Internal_Circuits\AND.txt
+		Internal_Circuits\NOR.txt = Internal_Circuits\NOR.txt
+		Internal_Circuits\NOT.txt = Internal_Circuits\NOT.txt
+		Internal_Circuits\OR.txt = Internal_Circuits\OR.txt
+		Internal_Circuits\XOR.txt = Internal_Circuits\XOR.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

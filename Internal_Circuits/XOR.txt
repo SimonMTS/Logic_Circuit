@@ -1,0 +1,18 @@
+# XOR
+# 
+#
+#
+# Description of all the nodes
+#
+A:	INPUT_HIGH;
+B:	INPUT_HIGH;
+C:	PROBE;
+NODE1:	NAND;
+
+#
+#
+# Description of all the edges
+#
+A:		NODE1;
+B:		NODE1;
+NODE1:	C;

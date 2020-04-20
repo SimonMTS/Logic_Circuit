@@ -1,0 +1,16 @@
+# NOT
+# 
+#
+#
+# Description of all the nodes
+#
+A:	INPUT_HIGH;
+C:	PROBE;
+NODE1:	NAND;
+
+#
+#
+# Description of all the edges
+#
+A:		NODE1;
+NODE1:	C;
