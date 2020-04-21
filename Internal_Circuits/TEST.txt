@@ -1,0 +1,17 @@
+# AND
+# 
+#
+#
+# Description of all the nodes
+#
+IN1:	INPUT_HIGH;
+IN2:	INPUT_HIGH;
+OUT1:	PROBE;
+OUT2:	PROBE;
+
+#
+#
+# Description of all the edges
+#
+IN1:	OUT1;
+IN2:	OUT2;

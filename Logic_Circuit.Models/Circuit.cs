@@ -9,8 +9,6 @@ namespace Logic_Circuit.Models
 {
     public class Circuit
     {
-        public static string[] SubCircuits;
-
         public Dictionary<string, InputNode> InputNodes { get; private set; } = new Dictionary<string, InputNode>();
         public Dictionary<string, OutputNode> OutputNodes { get; private set; } = new Dictionary<string, OutputNode>();
 

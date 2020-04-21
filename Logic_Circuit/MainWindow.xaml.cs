@@ -39,8 +39,6 @@ namespace Logic_Circuit
 
             if (success == true)
             {
-                Circuit.SubCircuits = Parse.GetSubCircuits();
-
                 string content = File.ReadAllText(dlg.FileName);
 
                 (bool, Circuit, string) c = Parse.Try( content );
@@ -49,6 +47,7 @@ namespace Logic_Circuit
                 {
                     ResultWindow result = new ResultWindow(c.Item2);
                     result.SizeToContent = SizeToContent.WidthAndHeight;
+                    result.Title = System.IO.Path.GetFileName(dlg.FileName);
                     App.Current.MainWindow = result;
                     result.Show();
                 }

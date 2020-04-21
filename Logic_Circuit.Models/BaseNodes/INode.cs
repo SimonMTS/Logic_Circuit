@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Logic_Circuit.Models.BaseNodes
 {
     public interface INode
     {
         string Name { get; set; }
+        int RealDepth { get; set; }
 
-        bool Process();
+        bool[] Process();
+
+        Brush GetDisplayableValue(Brush ifTrue, Brush ifFalse, Brush ifMixed);
     }
 }

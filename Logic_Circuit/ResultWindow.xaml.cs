@@ -52,11 +52,11 @@ namespace Logic_Circuit
             {
                 Width = 80,
                 Height = 80,
-                Margin = new Thickness(50 + (200 * depth), 50 + (150 * depthCounter[depth]) + (depth % 2 == 0 ? 0 : 80), 5, 5),
+                Margin = new Thickness(50 + (200 * depth), 50 + (200 * depthCounter[depth]) + (depth % 2 == 0 ? 0 : 100), 5, 5),
                 Content = (node is CircuitNode ? node.Name + "\n(" + ((CircuitNode)node).Type + ")" : node.Name),
                 Name = node.Name,
                 Tag = (depthCounter[depth], depth),
-                Background = controller.GetColor(node.Process()),
+                Background = controller.GetColor(node),
                 Style = this.FindResource("HoverButton") as Style
             };
 
@@ -67,7 +67,20 @@ namespace Logic_Circuit
             Canvas.Children.Add(btn);
             Canvas.SetZIndex(btn, 3);
 
-            if (Canvas.Height < 200 + (150 * depthCounter[depth]) + (depth % 2 == 0 ? 0 : 80)) Canvas.Height = 200 + (150 * depthCounter[depth]) + (depth % 2 == 0 ? 0 : 80);
+            TextBlock txt = new TextBlock
+            {
+                Name = "nano",
+                Width = 80,
+                Height = 20,
+                Margin = new Thickness(50 + (200 * depth), 130 + (200 * depthCounter[depth]) + (depth % 2 == 0 ? 0 : 100), 5, 5),
+                Text = (node.RealDepth * 15) + " nanosec.",
+                TextAlignment = TextAlignment.Right
+            };
+
+            Canvas.Children.Add(txt);
+            Canvas.SetZIndex(txt, 5);
+
+            if (Canvas.Height < 200 + (200 * depthCounter[depth]) + (depth % 2 == 0 ? 0 : 100)) Canvas.Height = 200 + (200 * depthCounter[depth]) + (depth % 2 == 0 ? 0 : 100);
             if (Canvas.Width < 200 + (200 * depth)) Canvas.Width = 200 + (200 * depth);
 
             depthCounter[depth]++;
@@ -85,8 +98,14 @@ namespace Logic_Circuit
             Point startPoint = new Point(btn1Point.X + inputbtn.ActualWidth, btn1Point.Y + inputbtn.ActualHeight / 2);
             Point endPoint = new Point(btn2Point.X, btn2Point.Y + outputbtn.ActualHeight / 2);
 
-            int offset = (((int)((ValueTuple<int, int>)inputbtn.Tag).Item1) % 2 != 0 ? (((int)((ValueTuple<int, int>)inputbtn.Tag).Item1) * 2) : (((int)((ValueTuple<int, int>)inputbtn.Tag).Item1) - 1) * 2 * -1);
-            int extraOffset = ((int)((ValueTuple<int, int>)inputbtn.Tag).Item2) % 2 == 0 ? -15 : 0;
+            int offsetX = ((int)((ValueTuple<int, int>)inputbtn.Tag).Item1) * 6;
+            int offsetY = ((int)((ValueTuple<int, int>)inputbtn.Tag).Item2 + 1) * (((int)((ValueTuple<int, int>)inputbtn.Tag).Item1) * 4);
+
+            if (offsetY >= 40)
+            {
+                offsetY = offsetY - 32;
+                offsetY = offsetY - (offsetY * 2);
+            }
 
             int prevLines = 0;
             while (((Line)LogicalTreeHelper.FindLogicalNode(Canvas, inputbtn.Name + "line1_" + prevLines)) != null)
@@ -97,22 +116,22 @@ namespace Logic_Circuit
             DrawLineSegment(
                 inputbtn.Name + "line1_" + prevLines,
                 brush,
-                new Point(endPoint.X - 50 + offset + extraOffset + 1, startPoint.Y + offset),
-                new Point(startPoint.X, startPoint.Y + offset)
+                new Point(endPoint.X - 50 + 1 + offsetX, startPoint.Y + offsetY),
+                new Point(startPoint.X, startPoint.Y + offsetY)
             );
 
             DrawLineSegment(
                 inputbtn.Name + "line2_" + prevLines,
                 brush,
-                new Point(endPoint.X - 50 + offset + extraOffset, startPoint.Y + offset),
-                new Point(endPoint.X - 50 + offset + extraOffset, endPoint.Y + offset)
+                new Point(endPoint.X - 50 + offsetX, startPoint.Y + offsetY),
+                new Point(endPoint.X - 50 + offsetX, endPoint.Y + offsetY)
             );
 
             DrawLineSegment(
                 inputbtn.Name + "line3_" + prevLines,
                 brush,
-                new Point(endPoint.X - 50 + offset + extraOffset - 1, endPoint.Y + offset),
-                new Point(endPoint.X, endPoint.Y + offset)
+                new Point(endPoint.X - 50 - 1 + offsetX, endPoint.Y + offsetY),
+                new Point(endPoint.X, endPoint.Y + offsetY)
             );
 
         }
@@ -195,10 +214,11 @@ namespace Logic_Circuit
             controller.OnButtonClick(btn.Name, this);
         }
 
-        public void SpawnNew(Circuit circuit)
+        public void SpawnNew(Circuit circuit, string title)
         {
             ResultWindow result = new ResultWindow(circuit);
             result.SizeToContent = SizeToContent.WidthAndHeight;
+            result.Title = title;
             App.Current.MainWindow = result;
             result.Show();
         }
@@ -221,17 +241,20 @@ namespace Logic_Circuit
             foreach (var child in Canvas.Children)
             {
                 string nodeName = Regex.Replace(((FrameworkElement)child).Name, @"line\d_\d*", "");
+
+                if (nodeName == "nano") continue;
+
                 INode node = circuit.Nodes[nodeName];
 
                 if (child is Line)
                 {
-                    ((Line)child).Stroke = controller.GetColor(node.Process());
+                    ((Line)child).Stroke = controller.GetColor(node);
 
                 }
 
                 if (child is Button)
                 {
-                    ((Button)child).Background = controller.GetColor(node.Process());
+                    ((Button)child).Background = controller.GetColor(node);
                 }
             }
         }

@@ -1,0 +1,14 @@
+# NOT
+# 
+#
+#
+# Description of all the nodes
+#
+A:	INPUT_HIGH;
+C:	PROBE;
+
+#
+#
+# Description of all the edges
+#
+A:		C;

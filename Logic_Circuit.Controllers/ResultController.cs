@@ -47,6 +47,7 @@ namespace Logic_Circuit.Controllers
                         continue;
                     }
 
+                    node.RealDepth = i;
                     window.DisplayNode(node, i + 1);
                     tmpDoneNames.Add(node.Name);
                     doneNodes.Add(node);
@@ -64,8 +65,6 @@ namespace Logic_Circuit.Controllers
             }
         }
 
-        private bool firstDraw = false;
-
         public void DrawLines(IResultWin window)
         {
             foreach (INode doneNode in doneNodes)
@@ -77,7 +76,7 @@ namespace Logic_Circuit.Controllers
                         INode start = input;
                         INode end = doneNode;
 
-                        window.DrawLine(start, end, GetColor(start.Process()));
+                        window.DrawLine(start, end, GetColor(start));
                     }
                 }
                 else if (doneNode is OutputNode)
@@ -85,11 +84,9 @@ namespace Logic_Circuit.Controllers
                     INode start = ((OutputNode)doneNode).Input;
                     INode end = doneNode;
 
-                    window.DrawLine(start, end, GetColor(start.Process()));
+                    window.DrawLine(start, end, GetColor(start));
                 }
             }
-
-            firstDraw = true;
         }
 
         #endregion draw
@@ -108,21 +105,21 @@ namespace Logic_Circuit.Controllers
         }
 
         private void RenderNodeD(INode node, int depth)
-            {
-                maxDepth = depth > maxDepth ? depth - 1 : maxDepth;
+        {
+            maxDepth = depth > maxDepth ? depth - 1 : maxDepth;
 
-                if (node is OutputNode)
+            if (node is OutputNode)
+            {
+                RenderNodeD(((OutputNode)node).Input, depth + 1);
+            }
+            else if (node is CircuitNode)
+            {
+                foreach (INode input in ((CircuitNode)node).Inputs)
                 {
-                    RenderNodeD(((OutputNode)node).Input, depth + 1);
-                }
-                else if (node is CircuitNode)
-                {
-                    foreach (INode input in ((CircuitNode)node).Inputs)
-                    {
-                        RenderNodeD(input, depth + 1);
-                    }
+                    RenderNodeD(input, depth + 1);
                 }
             }
+        }
 
         #endregion depth
 
@@ -138,28 +135,30 @@ namespace Logic_Circuit.Controllers
         private Brush Red3 = (Brush)new BrushConverter().ConvertFrom("#E57373"); // 300
         private Brush Red4 = (Brush)new BrushConverter().ConvertFrom("#B71C1C"); // 900
 
-        private Brush HighLight1 = (Brush)new BrushConverter().ConvertFrom("#607D8B"); // 500
+        private Brush Orange1 = (Brush)new BrushConverter().ConvertFrom("#FF9800"); // 500
+        private Brush Orange2 = (Brush)new BrushConverter().ConvertFrom("#F57C00"); // 700
+        private Brush Orange3 = (Brush)new BrushConverter().ConvertFrom("#FFB74D"); // 300
+        private Brush Orange4 = (Brush)new BrushConverter().ConvertFrom("#E65100"); // 900
 
-        public Brush GetColor(bool value) {
-            return GetColor(value, false);
-        }
-
-        public Brush GetColor(Brush brush, bool highlighted) {
-            bool value = brush == Green1 || brush == Green3;
-
-            return GetColor(value, highlighted);
-        }
-
-        public Brush GetColor(bool value, bool highlighted)
+        public Brush GetColor(Brush brush, bool highlighted)
         {
-            if (highlighted)
+            if (brush == Green1 || brush == Green3)
             {
-                return value ? Green1 : Red1;
+                return highlighted ? Green1 : Green3;
+            }
+            else if (brush == Red1 || brush == Red3)
+            {
+                return highlighted ? Red1 : Red3;
             }
             else
             {
-                return value ? Green3 : Red3;
+                return highlighted ? Orange1 : Orange3;
             }
+        }
+
+        public Brush GetColor(INode node)
+        {
+            return node.GetDisplayableValue(Green3, Red3, Orange3);
         }
 
         #endregion color
@@ -179,7 +178,7 @@ namespace Logic_Circuit.Controllers
 
             if (node is CircuitNode && ((CircuitNode)node).Type != "NAND")
             {
-                window.SpawnNew(((CircuitNode)node).Circuit);
+                window.SpawnNew(((CircuitNode)node).Circuit, ((CircuitNode)node).Type);
             }
         }
 
@@ -197,5 +196,5 @@ public interface IResultWin
 
     void UpdateCanvas(Circuit circuit);
 
-    void SpawnNew(Circuit circuit);
+    void SpawnNew(Circuit circuit, string title);
 }

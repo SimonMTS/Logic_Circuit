@@ -15,6 +15,35 @@ namespace Logic_Circuit.Parser
     {
         private static List<string> NodeNames = new List<string>();
 
+        private static string[] InternalCircuitNames = null;
+        private static string[] GetInternalCircuitNames()
+        {
+            if (InternalCircuitNames != null)
+            {
+                return InternalCircuitNames;
+            }
+
+            List<string> names = new List<string>();
+
+            string currentDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            currentDir += "../../../../Internal_Circuits";
+
+            string[] fileEntries = Directory.GetFiles(currentDir);
+            foreach (string fileName in fileEntries)
+            {
+                names.Add(Path.GetFileName(fileName).Replace(".txt", ""));
+            }
+
+            names.Add("INPUT_HIGH");
+            names.Add("INPUT_LOW");
+            names.Add("PROBE");
+            names.Add("NAND");
+
+            InternalCircuitNames = names.ToArray();
+
+            return InternalCircuitNames;
+        }
+
         public static (bool, Circuit, string) Try( string content )
         {
             Circuit circuit = new Circuit();
@@ -145,7 +174,7 @@ namespace Logic_Circuit.Parser
 
             // valid node type
             string type = line.Split(':')[1].Trim().Replace(";", "");
-            string[] types = { "INPUT_HIGH", "INPUT_LOW", "PROBE", "NAND", "AND", "OR", "NOT" }; // todo get from files
+            string[] types = GetInternalCircuitNames();
             if (
                 !types.Contains(type) && 
                 !NodeNames.Contains(type.Split(',')[0])
@@ -229,56 +258,27 @@ namespace Logic_Circuit.Parser
 
         #region subCircuits
 
-        public static string[] GetSubCircuits()
-        {//todo fix
-            Dictionary<string, Circuit> subCircuits = new Dictionary<string, Circuit>();
-
-            string currentDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            currentDir += "../../../../Internal_Circuits";
-
-            string[] fileEntries = Directory.GetFiles(currentDir);
-            foreach (string fileName in fileEntries)
-            {
-                string content = File.ReadAllText(fileName);
-
-                (bool, Circuit, string) c = Try(content);
-                if (c.Item1)
-                {
-                    subCircuits.Add(Path.GetFileName(fileName).Replace(".txt", ""), c.Item2);
-                }
-                else
-                {
-                    Console.WriteLine(c.Item3);
-                }
-            }
-
-            return subCircuits.Keys.ToArray();
-        }
-
         public static Circuit GetSubCircuit(string name)
-        { //todo fix
+        {
             Dictionary<string, Circuit> subCircuits = new Dictionary<string, Circuit>();
 
             string currentDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
             currentDir += "../../../../Internal_Circuits";
 
-            string[] fileEntries = Directory.GetFiles(currentDir);
-            foreach (string fileName in fileEntries)
+            string fileName = currentDir + "/" + name + ".txt";
+
+            string content = File.ReadAllText(fileName);
+
+            (bool, Circuit, string) c = Try(content);
+            if (c.Item1)
             {
-                string content = File.ReadAllText(fileName);
-
-                (bool, Circuit, string) c = Try(content);
-                if (c.Item1)
-                {
-                    subCircuits.Add(Path.GetFileName(fileName).Replace(".txt", ""), c.Item2);
-                }
-                else
-                {
-                    Console.WriteLine(c.Item3);
-                }
+                return c.Item2;
             }
-
-            return subCircuits[name];
+            else
+            {
+                Console.WriteLine(c.Item3);
+                return null;
+            }
         }
 
         #endregion subCircuits
