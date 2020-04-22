@@ -15,6 +15,13 @@ namespace Logic_Circuit.Models.BaseNodes
         public bool Value { get; set; }
         public bool DefaultValue { get; set; }
 
+        public InputNode(string name, bool value, bool defaultValue)
+        {
+            Name = name;
+            Value = value;
+            DefaultValue = defaultValue;
+        }
+
         public bool[] Process()
         {
             return new bool[] { Value };

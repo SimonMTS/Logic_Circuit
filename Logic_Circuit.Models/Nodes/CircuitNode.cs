@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logic_Circuit.Models.Circuits;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,16 @@ namespace Logic_Circuit.Models.BaseNodes
         public int RealDepth { get => CalcRealDepth(); set { } }
         public string Type { get; set; }
         public Circuit Circuit { get; set; }
+        public List<INode> Inputs { get; set; } = new List<INode>();
+
+        private Dictionary<string, int> RetrievedInputs = new Dictionary<string, int>();
+
+        public CircuitNode(string name, string type, Circuit circuit)
+        {
+            Name = name;
+            Type = type;
+            Circuit = circuit;
+        }
 
         private int CalcRealDepth()
         {
@@ -36,19 +47,13 @@ namespace Logic_Circuit.Models.BaseNodes
             return highestInternal + highest;
         }
 
-        public List<INode> Inputs { get; set; } = new List<INode>();
-
-        private Dictionary<string, int> RetrievedInputs = new Dictionary<string, int>();
-        private int TotalRetrievedInputs = 0;
-
         public int RetrievedInputsIncr(string name)
         {
             if (Circuit == null || Circuit.OutputNodes.Count == 1) return 0;
 
             if (!RetrievedInputs.ContainsKey(name))
             {
-                RetrievedInputs.Add(name, TotalRetrievedInputs);
-                TotalRetrievedInputs++;
+                RetrievedInputs.Add(name, RetrievedInputs.Count);
             }
 
             return RetrievedInputs[name];
@@ -132,6 +137,7 @@ namespace Logic_Circuit.Models.BaseNodes
                     if (res[i] != res[i - 1])
                     {
                         allTheSame = false;
+                        break;
                     }
                 }
 

@@ -41,14 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Parse.cs" />
+    <Compile Include="CircuitParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Logic_Circuit.Models\Logic_Circuit.Models.csproj">
-      <Project>{91383CDA-8084-41DB-9DB6-224BDC6BD4AA}</Project>
-      <Name>Logic_Circuit.Models</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

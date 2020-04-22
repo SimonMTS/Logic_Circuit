@@ -1,5 +1,6 @@
 ﻿using Logic_Circuit.Models;
 using Logic_Circuit.Models.BaseNodes;
+using Logic_Circuit.Models.Circuits;
 using System;
 using System.Collections.Generic;
 using System.Linq;

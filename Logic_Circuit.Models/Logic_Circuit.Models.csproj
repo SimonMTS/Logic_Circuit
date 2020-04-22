@@ -42,12 +42,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseNodes\CircuitNode.cs" />
-    <Compile Include="BaseNodes\InputNode.cs" />
-    <Compile Include="BaseNodes\INode.cs" />
-    <Compile Include="BaseNodes\OutputNode.cs" />
-    <Compile Include="Circuit.cs" />
+    <Compile Include="Builders\CircuitBuilder.cs" />
+    <Compile Include="Prototypes\IClonable.cs" />
+    <Compile Include="Factories\CircuitFactory.cs" />
+    <Compile Include="Factories\NodeFactories\INodeFactory.cs" />
+    <Compile Include="Nodes\CircuitNode.cs" />
+    <Compile Include="Nodes\InputNode.cs" />
+    <Compile Include="Nodes\INode.cs" />
+    <Compile Include="Nodes\OutputNode.cs" />
+    <Compile Include="Circuits\Circuit.cs" />
+    <Compile Include="Factories\NodeFactories\CircuitNodeFactory.cs" />
+    <Compile Include="Factories\NodeFactories\InputNodeFactory.cs" />
+    <Compile Include="Factories\NodeFactories\NodeFactory.cs" />
+    <Compile Include="Factories\NodeFactories\OutputNodeFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Strategies\NodeProcessStrategies\MultipleInputStrategy.cs" />
+    <Compile Include="Strategies\NodeProcessStrategies\SingleInputStrategy.cs" />
+    <Compile Include="Strategies\NodeProcessStrategy.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Logic_Circuit.Parser\Logic_Circuit.Parser.csproj">
+      <Project>{8C7F517B-5E8F-4D24-98A4-0D7578B5B4FD}</Project>
+      <Name>Logic_Circuit.Parser</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

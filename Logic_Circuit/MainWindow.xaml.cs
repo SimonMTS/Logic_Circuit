@@ -1,20 +1,9 @@
-﻿using Logic_Circuit.Models;
-using Logic_Circuit.Parser;
+﻿using Logic_Circuit.Parser;
+using Logic_Circuit.Models.Circuits;
+using Logic_Circuit.Models.Factories;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace Logic_Circuit
 {
@@ -30,31 +19,29 @@ namespace Logic_Circuit
 
         public void SelectFile(object sender, RoutedEventArgs e)
         {
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-
-            dlg.DefaultExt = ".txt";
-            dlg.Filter = "TXT Files (*.txt)|*.txt";
+            OpenFileDialog dlg = new OpenFileDialog
+            {
+                DefaultExt = ".txt",
+                Filter = "TXT Files (*.txt)|*.txt"
+            };
 
             bool? success = dlg.ShowDialog();
 
             if (success == true)
             {
-                string content = File.ReadAllText(dlg.FileName);
+                Circuit circuit = CircuitFactory.GetFromFile(dlg.FileName);
 
-                (bool, Circuit, string) c = Parse.Try( content );
-
-                if (c.Item1)
+                if (circuit != null)
                 {
-                    ResultWindow result = new ResultWindow(c.Item2);
-                    result.SizeToContent = SizeToContent.WidthAndHeight;
-                    result.Title = System.IO.Path.GetFileName(dlg.FileName);
-                    App.Current.MainWindow = result;
-                    result.Show();
+                    ResultWindow res = new ResultWindow(circuit);
+                    res.SizeToContent = SizeToContent.WidthAndHeight;
+                    res.Title = System.IO.Path.GetFileName(dlg.FileName);
+                    App.Current.MainWindow = res;
+                    res.Show();
                 }
                 else
                 {
-                    Console.WriteLine(c.Item3);
-                    textBlock.Text = c.Item3;
+                    Console.WriteLine("result.error");
                 }
             }
         }

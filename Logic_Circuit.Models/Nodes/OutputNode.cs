@@ -14,6 +14,11 @@ namespace Logic_Circuit.Models.BaseNodes
 
         public INode Input { get; set; }
 
+        public OutputNode(string name)
+        {
+            Name = name;
+        }
+
         public bool[] Process()
         {
             if (Input is CircuitNode)
