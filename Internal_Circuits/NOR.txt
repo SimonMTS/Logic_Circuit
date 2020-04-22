@@ -8,11 +8,17 @@ A:	INPUT_HIGH;
 B:	INPUT_HIGH;
 C:	PROBE;
 NODE1:	NAND;
+NODE2:	NAND;
+NODE3:	NAND;
+NODE4:	NAND;
 
 #
 #
 # Description of all the edges
 #
 A:		NODE1;
-B:		NODE1;
-NODE1:	C;
+B:		NODE2;
+NODE1:	NODE3;
+NODE2:	NODE3;
+NODE3:	NODE4;
+NODE4:	C;
