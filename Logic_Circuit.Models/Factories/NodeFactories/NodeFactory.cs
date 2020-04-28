@@ -1,4 +1,5 @@
 ﻿using Logic_Circuit.Models.BaseNodes;
+using Logic_Circuit.Models.Factories.NodeFactories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,10 @@ namespace Logic_Circuit.Models.Factories
 {
     class NodeFactory : INodeFactory
     {
-        InputNodeFactory inputNodeFactory = new InputNodeFactory();
-        OutputNodeFactory outputNodeFactory = new OutputNodeFactory();
-        CircuitNodeFactory circuitNodeFactory = new CircuitNodeFactory();
+        private readonly INodeFactory inputNodeFactory = new InputNodeFactory();
+        private readonly INodeFactory outputNodeFactory = new OutputNodeFactory();
+        private readonly INodeFactory circuitNodeFactory = new CircuitNodeFactory();
+        private readonly INodeFactory nandNodeFactory = new NandNodeFactory();
 
         public INode GetNode(string name, string type)
         {
@@ -22,6 +24,10 @@ namespace Logic_Circuit.Models.Factories
             else if (type.Equals("PROBE"))
             {
                 return outputNodeFactory.GetNode(name, type);
+            }
+            else if (type.Equals("NAND"))
+            {
+                return nandNodeFactory.GetNode(name, type);
             }
             else
             {

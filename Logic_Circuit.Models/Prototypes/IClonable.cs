@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Logic_Circuit.Models.Circuits
 {
-    interface IClonable
+    public interface IClonable<T>
     {
+        T Clone();
     }
 }

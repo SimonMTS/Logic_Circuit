@@ -10,6 +10,7 @@ namespace Logic_Circuit.Models.BaseNodes
     public class OutputNode : INode
     {
         public string Name { get; set; }
+        public string Type { get => "PROBE"; set { } }
         public int RealDepth { get => Input.RealDepth; set { } }
 
         public INode Input { get; set; }

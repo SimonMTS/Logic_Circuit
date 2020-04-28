@@ -8,13 +8,12 @@ using System.Threading.Tasks;
 
 namespace Logic_Circuit.Models.Circuits
 {
-    public class Circuit : IClonable
+    public class Circuit : IClonable<Circuit>
     {
         public Dictionary<string, InputNode> InputNodes { get; private set; } = new Dictionary<string, InputNode>();
         public Dictionary<string, OutputNode> OutputNodes { get; private set; } = new Dictionary<string, OutputNode>();
 
         public Dictionary<string, INode> Nodes { get; private set; } = new Dictionary<string, INode>();
-
 
         public void Reset()
         {
@@ -22,6 +21,26 @@ namespace Logic_Circuit.Models.Circuits
             {
                 inputNode.Reset();
             }
+        }
+
+        public Circuit Clone()
+        {
+            CircuitBuilder circuitBuilder = new CircuitBuilder();
+
+            foreach (var node in Nodes)
+            {
+                circuitBuilder.AddNode(node.Value.Name, node.Value.Type);
+            }
+
+            foreach (var connectionString in parser.GetConnectionString(fileName))
+            {
+                foreach (string outputNode in connectionString.outputs)
+                {
+                    circuitBuilder.AddConnection(connectionString.input, outputNode);
+                }
+            }
+
+            return circuitBuilder.GetCircuit();
         }
     }
 }

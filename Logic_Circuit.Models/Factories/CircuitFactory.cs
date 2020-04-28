@@ -10,6 +10,11 @@ namespace Logic_Circuit.Models.Factories
 {
     public class CircuitFactory
     {
+        public static Circuit GetCircuit()
+        {
+            return null;
+        }
+
         public static Circuit GetFromFile(string filePath)
         {
             CircuitParser parser = CircuitParser.GetParser();

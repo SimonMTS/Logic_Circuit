@@ -1,4 +1,7 @@
 ﻿using Logic_Circuit.Models.Circuits;
+using Logic_Circuit.Models.Factories;
+using Logic_Circuit.Models.Strategies;
+using Logic_Circuit.Models.Strategies.NodeProcessStrategies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +19,7 @@ namespace Logic_Circuit.Models.BaseNodes
         public Circuit Circuit { get; set; }
         public List<INode> Inputs { get; set; } = new List<INode>();
 
-        private Dictionary<string, int> RetrievedInputs = new Dictionary<string, int>();
+        private readonly Dictionary<string, int> RetrievedInputs = new Dictionary<string, int>();
 
         public CircuitNode(string name, string type, Circuit circuit)
         {
@@ -61,63 +64,27 @@ namespace Logic_Circuit.Models.BaseNodes
 
         public bool[] Process()
         {
-            if ( Type.Equals("NAND") )
-            {
-                foreach (INode input in Inputs)
-                {
-                    foreach (bool res in input.Process())
-                    {
-                        if (!res)
-                        {
-                            return new bool[] { true };
-                        }
-                    }
-
-                }
-
-                return new bool[] { false };
-            }
-
             if (Inputs.Count <= Circuit.InputNodes.Count)
             {
-                Circuit.Reset();
-
-                List<bool> inputValuesList = new List<bool>();
-                for (int i = 0; i < Inputs.Count; i++)
+                NodeProcessContext context;
+                if (Inputs.Count == 1 && Circuit.OutputNodes.Count == 1)
                 {
-                    if (Inputs[i] is CircuitNode)
-                    {
-                        int ret = ((CircuitNode)Inputs[i]).RetrievedInputsIncr(this.Name+i);
-
-                        inputValuesList.Add(Inputs[i].Process()[ret]);
-                    }
-                    else
-                    {
-                        inputValuesList.Add(Inputs[i].Process()[0]);
-                    }
+                    context = new NodeProcessContext(new OneToOneInputStrategy());
                 }
-                bool[] inputValues = inputValuesList.ToArray();
-
-                int j = 0;
-                foreach (InputNode node in Circuit.InputNodes.Values)
+                else if (Circuit.OutputNodes.Count == 1)
                 {
-                    if (inputValues.Length <= j) break;
-
-                    node.Value = inputValues[j];
-                    j++;
+                    context = new NodeProcessContext(new NToOneInputStrategy());
+                }
+                else
+                {
+                    context = new NodeProcessContext(new NToNInputStrategy());
                 }
 
-                List<bool> outputArray = new List<bool>();
-                foreach (OutputNode outputNode in Circuit.OutputNodes.Values)
-                {
-                    outputArray.Add(outputNode.Process()[0]);
-                }
-
-                return outputArray.ToArray();
+                return context.ProcessInput(this);
             }
 
 
-            throw new NotImplementedException();
+            throw new Exception(); // this shouldn't be possible, and exists only for testing // todo remove
         }
 
         public Brush GetDisplayableValue(Brush ifTrue, Brush ifFalse, Brush ifMixed)
@@ -150,6 +117,11 @@ namespace Logic_Circuit.Models.BaseNodes
                     return ifMixed;
                 }
             }
+        }
+
+        public INode Clone()
+        {
+            return new CircuitNode(this.Name, this.Type, CircuitFactory.GetCircuit());
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Logic_Circuit.Models.BaseNodes
     public class InputNode : INode
     {
         public string Name { get; set; }
+        public string Type { get => Value ? "INPUT_HIGH" : "INPUT_LOW"; set { } }
         public int RealDepth { get => 0; set { } }
 
         public bool Value { get; set; }

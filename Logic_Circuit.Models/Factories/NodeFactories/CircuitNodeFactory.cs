@@ -13,23 +13,16 @@ namespace Logic_Circuit.Models.Factories
     {
         public INode GetNode(string name, string type)
         {
-            if (type.Equals("NAND"))
-            {
-                return new CircuitNode(name, "NAND", null);
-            }
-            else
-            {
-                string currentDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-                currentDir += "../../../../Internal_Circuits/";
+            string currentDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            currentDir += "../../../../Internal_Circuits/";
 
-                Circuit circuit = CircuitFactory.GetFromFile(currentDir + type + ".txt");
+            Circuit circuit = CircuitFactory.GetFromFile(currentDir + type + ".txt");
 
-                return new CircuitNode(
-                    name,
-                    type,
-                    circuit
-                );
-            }
+            return new CircuitNode(
+                name,
+                type,
+                circuit
+            );
         }
     }
 }

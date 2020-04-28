@@ -1,5 +1,6 @@
 ﻿using Logic_Circuit.Models.BaseNodes;
 using Logic_Circuit.Models.Factories;
+using Logic_Circuit.Models.Nodes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,10 @@ namespace Logic_Circuit.Models.Circuits
             if (output is CircuitNode)
             {
                 ((CircuitNode)output).Inputs.Add(input);
+            }
+            else if (output is NandNode)
+            {
+                ((NandNode)output).Inputs.Add(input);
             }
             else
             {
