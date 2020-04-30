@@ -1,5 +1,6 @@
 ﻿using Logic_Circuit.Models.Circuits;
 using Logic_Circuit.Models.Factories;
+using Logic_Circuit.Models.Nodes.NodeInputTypes;
 using Logic_Circuit.Models.Strategies;
 using Logic_Circuit.Models.Strategies.NodeProcessStrategies;
 using System;
@@ -11,7 +12,7 @@ using System.Windows.Media;
 
 namespace Logic_Circuit.Models.BaseNodes
 {
-    public class CircuitNode : INode
+    public class CircuitNode : INode, IMultipleInputs
     {
         public string Name { get; set; }
         public int RealDepth { get => CalcRealDepth(); set { } }
@@ -121,7 +122,7 @@ namespace Logic_Circuit.Models.BaseNodes
 
         public INode Clone()
         {
-            return new CircuitNode(this.Name, this.Type, CircuitFactory.GetCircuit());
+            return new CircuitNode(this.Name, this.Type, CircuitFactory.GetCircuit(Circuit.Name));
         }
     }
 }

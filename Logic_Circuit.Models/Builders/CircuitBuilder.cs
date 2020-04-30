@@ -1,6 +1,7 @@
 ﻿using Logic_Circuit.Models.BaseNodes;
 using Logic_Circuit.Models.Factories;
 using Logic_Circuit.Models.Nodes;
+using Logic_Circuit.Models.Nodes.NodeInputTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,18 +30,19 @@ namespace Logic_Circuit.Models.Circuits
             INode input = circuit.Nodes[inputNode];
             INode output = circuit.Nodes[outputNode];
 
-            if (output is CircuitNode)
+            if (output is IMultipleInputs)
             {
-                ((CircuitNode)output).Inputs.Add(input);
-            }
-            else if (output is NandNode)
-            {
-                ((NandNode)output).Inputs.Add(input);
+                ((IMultipleInputs)output).Inputs.Add(input);
             }
             else
             {
-                ((OutputNode)output).Input = input;
+                ((ISingleInput)output).Input = input;
             }
+        }
+
+        public void SetName(string name)
+        {
+            circuit.Name = name;
         }
 
         public Circuit GetCircuit()

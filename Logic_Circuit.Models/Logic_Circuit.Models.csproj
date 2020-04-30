@@ -45,6 +45,8 @@
     <Compile Include="Builders\CircuitBuilder.cs" />
     <Compile Include="Factories\NodeFactories\NandNodeFactory.cs" />
     <Compile Include="Nodes\NandNode.cs" />
+    <Compile Include="Nodes\NodeInputTypes\IMultipleInputs.cs" />
+    <Compile Include="Nodes\NodeInputTypes\ISingleInput.cs" />
     <Compile Include="Prototypes\IClonable.cs" />
     <Compile Include="Factories\CircuitFactory.cs" />
     <Compile Include="Factories\NodeFactories\INodeFactory.cs" />

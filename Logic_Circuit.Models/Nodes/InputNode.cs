@@ -37,5 +37,10 @@ namespace Logic_Circuit.Models.BaseNodes
         {
             Value = DefaultValue;
         }
+
+        public INode Clone()
+        {
+            return new InputNode(this.Name, this.DefaultValue, this.DefaultValue);
+        }
     }
 }

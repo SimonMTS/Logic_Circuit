@@ -10,9 +10,11 @@ namespace Logic_Circuit.Models.Factories
 {
     public class CircuitFactory
     {
-        public static Circuit GetCircuit()
+        private static Dictionary<string, Circuit> circuits = new Dictionary<string, Circuit>();
+
+        public static Circuit GetCircuit(string name)
         {
-            return null;
+            return circuits.ContainsKey(name) ? circuits[name] : null;
         }
 
         public static Circuit GetFromFile(string filePath)
@@ -23,9 +25,15 @@ namespace Logic_Circuit.Models.Factories
 
             if (result.success)
             {
-
                 string fileName = result.fileName;
+
+                if (circuits.ContainsKey(fileName))
+                {
+                    return circuits[fileName];
+                }
+
                 CircuitBuilder circuitBuilder = new CircuitBuilder();
+                circuitBuilder.SetName(fileName);
 
                 foreach (var nodeString in parser.GetNodeString(fileName))
                 {
@@ -40,7 +48,8 @@ namespace Logic_Circuit.Models.Factories
                     }
                 }
 
-                return circuitBuilder.GetCircuit();
+                circuits[fileName] = circuitBuilder.GetCircuit();
+                return circuits[fileName];
             }
             else
             {

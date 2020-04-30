@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logic_Circuit.Models.Nodes.NodeInputTypes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Windows.Media;
 
 namespace Logic_Circuit.Models.BaseNodes
 {
-    public class OutputNode : INode
+    public class OutputNode : INode, ISingleInput
     {
         public string Name { get; set; }
         public string Type { get => "PROBE"; set { } }
@@ -37,6 +38,11 @@ namespace Logic_Circuit.Models.BaseNodes
         public Brush GetDisplayableValue(Brush ifTrue, Brush ifFalse, Brush ifMixed)
         {
             return Process()[0] ? ifTrue : ifFalse;
+        }
+
+        public INode Clone()
+        {
+            return new OutputNode(this.Name);
         }
     }
 }

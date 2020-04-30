@@ -1,5 +1,7 @@
 ﻿using Logic_Circuit.Models;
 using Logic_Circuit.Models.BaseNodes;
+using Logic_Circuit.Models.Nodes;
+using Logic_Circuit.Models.Nodes.NodeInputTypes;
 using Logic_Circuit.Models.Circuits;
 using System;
 using System.Collections.Generic;
@@ -31,10 +33,10 @@ namespace Logic_Circuit.Controllers
                 {
                     if (doneNames.Contains(node.Name)) continue;
 
-                    if (node is CircuitNode)
+                    if (node is IMultipleInputs)
                     {
                         bool allInputsDisplayed = true;
-                        foreach (INode input in ((CircuitNode)node).Inputs)
+                        foreach (INode input in ((IMultipleInputs)node).Inputs)
                         {
                             if (!doneNames.Contains(input.Name))
                             {
@@ -43,7 +45,7 @@ namespace Logic_Circuit.Controllers
                         }
                         if (!allInputsDisplayed) continue;
                     }
-                    else if (node is OutputNode)
+                    else if (node is ISingleInput)
                     {
                         continue;
                     }
@@ -70,9 +72,9 @@ namespace Logic_Circuit.Controllers
         {
             foreach (INode doneNode in doneNodes)
             {
-                if (doneNode is CircuitNode)
+                if (doneNode is IMultipleInputs)
                 {
-                    foreach (INode input in ((CircuitNode)doneNode).Inputs)
+                    foreach (INode input in ((IMultipleInputs)doneNode).Inputs)
                     {
                         INode start = input;
                         INode end = doneNode;
@@ -80,9 +82,9 @@ namespace Logic_Circuit.Controllers
                         window.DrawLine(start, end, GetColor(start));
                     }
                 }
-                else if (doneNode is OutputNode)
+                else if (doneNode is ISingleInput)
                 {
-                    INode start = ((OutputNode)doneNode).Input;
+                    INode start = ((ISingleInput)doneNode).Input;
                     INode end = doneNode;
 
                     window.DrawLine(start, end, GetColor(start));
@@ -109,13 +111,13 @@ namespace Logic_Circuit.Controllers
         {
             maxDepth = depth > maxDepth ? depth - 1 : maxDepth;
 
-            if (node is OutputNode)
+            if (node is ISingleInput)
             {
-                RenderNodeD(((OutputNode)node).Input, depth + 1);
+                RenderNodeD(((ISingleInput)node).Input, depth + 1);
             }
-            else if (node is CircuitNode)
+            else if (node is IMultipleInputs)
             {
-                foreach (INode input in ((CircuitNode)node).Inputs)
+                foreach (INode input in ((IMultipleInputs)node).Inputs)
                 {
                     RenderNodeD(input, depth + 1);
                 }

@@ -1,4 +1,5 @@
 ﻿using Logic_Circuit.Models.BaseNodes;
+using Logic_Circuit.Models.Nodes.NodeInputTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Windows.Media;
 
 namespace Logic_Circuit.Models.Nodes
 {
-    class NandNode : INode
+    public class NandNode : INode, IMultipleInputs
     {
         public string Name { get; set; }
         public string Type { get => "NAND"; set { } }
@@ -28,7 +29,7 @@ namespace Logic_Circuit.Models.Nodes
                 if (input.RealDepth > highest) highest = input.RealDepth;
             }
 
-            return highest;
+            return highest + 1;
         }
 
         public bool[] Process()
@@ -53,6 +54,11 @@ namespace Logic_Circuit.Models.Nodes
             bool[] res = Process();
 
             return res[0] ? ifTrue : ifFalse;
+        }
+
+        public INode Clone()
+        {
+            return new NandNode(this.Name);
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Logic_Circuit.Models.BaseNodes;
+using Logic_Circuit.Models.Nodes;
+using Logic_Circuit.Models.Nodes.NodeInputTypes;
 using Logic_Circuit.Parser;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,8 @@ namespace Logic_Circuit.Models.Circuits
 {
     public class Circuit : IClonable<Circuit>
     {
+        public string Name { get; set; }
+
         public Dictionary<string, InputNode> InputNodes { get; private set; } = new Dictionary<string, InputNode>();
         public Dictionary<string, OutputNode> OutputNodes { get; private set; } = new Dictionary<string, OutputNode>();
 
@@ -32,11 +36,18 @@ namespace Logic_Circuit.Models.Circuits
                 circuitBuilder.AddNode(node.Value.Name, node.Value.Type);
             }
 
-            foreach (var connectionString in parser.GetConnectionString(fileName))
+            foreach (var node in Nodes)
             {
-                foreach (string outputNode in connectionString.outputs)
+                if (node is ISingleInput)
                 {
-                    circuitBuilder.AddConnection(connectionString.input, outputNode);
+                    circuitBuilder.AddConnection(((ISingleInput)node.Value).Input.Name, node.Value.Name);
+                }
+                else if (node is IMultipleInputs)
+                {
+                    foreach (var inputNode in ((IMultipleInputs)node.Value).Inputs)
+                    {
+                        circuitBuilder.AddConnection(inputNode.Name, node.Value.Name);
+                    }
                 }
             }
 
