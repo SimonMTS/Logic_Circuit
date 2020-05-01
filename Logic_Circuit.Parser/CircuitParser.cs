@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logic_Circuit.Parser.Validation;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace Logic_Circuit.Parser
             return ParserInstance;
         }
 
-        private Dictionary<string, string> Files = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> Files = new Dictionary<string, string>();
 
         public IEnumerable<(string name, string type)> GetNodeString(string fileName)
         {
@@ -67,7 +68,7 @@ namespace Logic_Circuit.Parser
             string onlyFileName = Path.GetFileName(filePath);
             string content = File.ReadAllText(filePath);
 
-            var validation = IsValidFile();
+            var validation = Validator.Validate(content);
 
             if (!validation.success)
             {
@@ -90,16 +91,6 @@ namespace Logic_Circuit.Parser
                     error: ""
                 );
             }
-        }
-
-        private (bool success, string validationError) IsValidFile()
-        {
-            // TODO todo to do TO DO : re-add validation
-
-            return (
-                success: true,
-                validationError: ""
-            );
         }
     }
 }

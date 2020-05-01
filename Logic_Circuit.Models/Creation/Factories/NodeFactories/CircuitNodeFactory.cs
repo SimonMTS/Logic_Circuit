@@ -16,12 +16,12 @@ namespace Logic_Circuit.Models.Factories
             string currentDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
             currentDir += "../../../../Internal_Circuits/";
 
-            Circuit circuit = CircuitFactory.GetFromFile(currentDir + type + ".txt");
+            var circuit = CircuitFactory.GetFromFile(currentDir + type + ".txt");
 
             return new CircuitNode(
                 name,
                 type,
-                circuit
+                circuit.circuit
             );
         }
     }

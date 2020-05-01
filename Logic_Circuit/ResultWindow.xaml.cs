@@ -2,6 +2,7 @@
 using Logic_Circuit.Models;
 using Logic_Circuit.Models.BaseNodes;
 using Logic_Circuit.Models.Circuits;
+using Logic_Circuit.Models.Nodes.NodeInputTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,7 +55,7 @@ namespace Logic_Circuit
                 Width = 80,
                 Height = 80,
                 Margin = new Thickness(50 + (200 * depth), 50 + (200 * depthCounter[depth]) + (depth % 2 == 0 ? 0 : 100), 5, 5),
-                Content = (node is CircuitNode ? node.Name + "\n(" + ((CircuitNode)node).Type + ")" : node.Name),
+                Content = (node is IMultipleInputs ? node.Name + "\n(" + ((IMultipleInputs)node).Type + ")" : node.Name),
                 Name = node.Name,
                 Tag = (depthCounter[depth], depth),
                 Background = controller.GetColor(node),
@@ -91,7 +92,6 @@ namespace Logic_Circuit
         {
             Button outputbtn = (Button)LogicalTreeHelper.FindLogicalNode(Canvas, endNode.Name);
             Button inputbtn = (Button)LogicalTreeHelper.FindLogicalNode(Canvas, startNode.Name);
-
 
             Point btn1Point = inputbtn.TransformToAncestor(Canvas).Transform(new Point(0, 0));
             Point btn2Point = outputbtn.TransformToAncestor(Canvas).Transform(new Point(0, 0));
@@ -139,14 +139,16 @@ namespace Logic_Circuit
 
         private void DrawLineSegment(string name, Brush brush, Point start, Point end)
         {
-            Line line = new Line();
-            line.Name = name;
-            line.Stroke = brush;
-            line.StrokeThickness = 2.0;
-            line.X1 = start.X;
-            line.Y1 = start.Y;
-            line.X2 = end.X;
-            line.Y2 = end.Y;
+            Line line = new Line
+            {
+                Name = name,
+                Stroke = brush,
+                StrokeThickness = 2.0,
+                X1 = start.X,
+                Y1 = start.Y,
+                X2 = end.X,
+                Y2 = end.Y
+            };
             Canvas.Children.Add(line);
             Panel.SetZIndex(line, 1);
 
@@ -237,8 +239,6 @@ namespace Logic_Circuit
 
         public void UpdateCanvas(Circuit circuit)
         {
-            /*Canvas.UpdateLayout();*/
-
             foreach (var child in Canvas.Children)
             {
                 string nodeName = Regex.Replace(((FrameworkElement)child).Name, @"line\d_\d*", "");

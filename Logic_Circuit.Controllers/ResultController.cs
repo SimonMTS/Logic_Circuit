@@ -128,40 +128,34 @@ namespace Logic_Circuit.Controllers
 
         #region color
 
-        private Brush Green1 = (Brush)new BrushConverter().ConvertFrom("#4CAF50"); // 500
-        private Brush Green2 = (Brush)new BrushConverter().ConvertFrom("#388E3C"); // 700
-        private Brush Green3 = (Brush)new BrushConverter().ConvertFrom("#81C784"); // 300
-        private Brush Green4 = (Brush)new BrushConverter().ConvertFrom("#1B5E20"); // 900
+        private readonly Brush Green1   = (Brush)new BrushConverter().ConvertFrom("#4CAF50"); // 500
+        private readonly Brush Green2   = (Brush)new BrushConverter().ConvertFrom("#81C784"); // 300
 
-        private Brush Red1 = (Brush)new BrushConverter().ConvertFrom("#F44336"); // 500
-        private Brush Red2 = (Brush)new BrushConverter().ConvertFrom("#D32F2F"); // 700
-        private Brush Red3 = (Brush)new BrushConverter().ConvertFrom("#E57373"); // 300
-        private Brush Red4 = (Brush)new BrushConverter().ConvertFrom("#B71C1C"); // 900
+        private readonly Brush Red1     = (Brush)new BrushConverter().ConvertFrom("#F44336"); // 500
+        private readonly Brush Red2     = (Brush)new BrushConverter().ConvertFrom("#E57373"); // 300
 
-        private Brush Orange1 = (Brush)new BrushConverter().ConvertFrom("#FF9800"); // 500
-        private Brush Orange2 = (Brush)new BrushConverter().ConvertFrom("#F57C00"); // 700
-        private Brush Orange3 = (Brush)new BrushConverter().ConvertFrom("#FFB74D"); // 300
-        private Brush Orange4 = (Brush)new BrushConverter().ConvertFrom("#E65100"); // 900
+        private readonly Brush Orange1  = (Brush)new BrushConverter().ConvertFrom("#FF9800"); // 500
+        private readonly Brush Orange2  = (Brush)new BrushConverter().ConvertFrom("#FFB74D"); // 300
 
         public Brush GetColor(Brush brush, bool highlighted)
         {
-            if (brush == Green1 || brush == Green3)
+            if (brush == Green1 || brush == Green2)
             {
-                return highlighted ? Green1 : Green3;
+                return highlighted ? Green1 : Green2;
             }
-            else if (brush == Red1 || brush == Red3)
+            else if (brush == Red1 || brush == Red2)
             {
-                return highlighted ? Red1 : Red3;
+                return highlighted ? Red1 : Red2;
             }
             else
             {
-                return highlighted ? Orange1 : Orange3;
+                return highlighted ? Orange1 : Orange2;
             }
         }
 
         public Brush GetColor(INode node)
         {
-            return node.GetDisplayableValue(Green3, Red3, Orange3);
+            return node.GetDisplayableValue(Green2, Red2, Orange2);
         }
 
         #endregion color
@@ -179,7 +173,7 @@ namespace Logic_Circuit.Controllers
                 window.UpdateCanvas(Circuit);
             }
 
-            if (node is CircuitNode && ((CircuitNode)node).Type != "NAND")
+            if (node is CircuitNode)
             {
                 window.SpawnNew(((CircuitNode)node).Circuit, ((CircuitNode)node).Type);
             }

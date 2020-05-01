@@ -4,14 +4,17 @@ using Logic_Circuit.Models.Factories;
 using System;
 using System.Windows;
 using Microsoft.Win32;
+using Logic_Circuit.Controllers;
 
 namespace Logic_Circuit
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IMainWin
     {
+        private readonly MainController controller = new MainController();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -19,31 +22,21 @@ namespace Logic_Circuit
 
         public void SelectFile(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog
-            {
-                DefaultExt = ".txt",
-                Filter = "TXT Files (*.txt)|*.txt"
-            };
+            controller.SelectFile(this)
+        }
 
-            bool? success = dlg.ShowDialog();
+        public void SpawnResultWindow(string name, Circuit circuit)
+        {
+            ResultWindow res = new ResultWindow(circuit);
+            res.SizeToContent = SizeToContent.WidthAndHeight;
+            res.Title = System.IO.Path.GetFileName(name);
+            App.Current.MainWindow = res;
+            res.Show();
+        }
 
-            if (success == true)
-            {
-                Circuit circuit = CircuitFactory.GetFromFile(dlg.FileName);
-
-                if (circuit != null)
-                {
-                    ResultWindow res = new ResultWindow(circuit);
-                    res.SizeToContent = SizeToContent.WidthAndHeight;
-                    res.Title = System.IO.Path.GetFileName(dlg.FileName);
-                    App.Current.MainWindow = res;
-                    res.Show();
-                }
-                else
-                {
-                    Console.WriteLine("result.error");
-                }
-            }
+        public void SetErrorText(string text)
+        {
+            textBlock.Text = text;
         }
     }
 }

@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace Logic_Circuit.Models.Nodes
 {
-    public class NandNode : INode, IMultipleInputs
+    public class NandNode : IMultipleInputs
     {
         public string Name { get; set; }
         public string Type { get => "NAND"; set { } }

@@ -43,6 +43,16 @@
   <ItemGroup>
     <Compile Include="CircuitParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validation\Validator.cs" />
+    <Compile Include="Validation\VisitorObjects\ConnectionLine.cs" />
+    <Compile Include="Validation\VisitorObjects\FileAsObject.cs" />
+    <Compile Include="Validation\VisitorObjects\Checkers\FormatChecker.cs" />
+    <Compile Include="Validation\VisitorObjects\Checkers\HangingConnectionChecker.cs" />
+    <Compile Include="Validation\VisitorObjects\Checkers\LineChecker.cs" />
+    <Compile Include="Validation\VisitorObjects\Checkers\LoopChecker.cs" />
+    <Compile Include="Validation\VisitorObjects\NodeLine.cs" />
+    <Compile Include="Validation\VisitorObjects\ValidationElement.cs" />
+    <Compile Include="Validation\VisitorObjects\Checkers\ValidationVisitor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

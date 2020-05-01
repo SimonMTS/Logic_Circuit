@@ -12,7 +12,7 @@ using System.Windows.Media;
 
 namespace Logic_Circuit.Models.BaseNodes
 {
-    public class CircuitNode : INode, IMultipleInputs
+    public class CircuitNode : IMultipleInputs
     {
         public string Name { get; set; }
         public int RealDepth { get => CalcRealDepth(); set { } }

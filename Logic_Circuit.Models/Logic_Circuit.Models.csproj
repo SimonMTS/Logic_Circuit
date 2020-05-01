@@ -61,7 +61,7 @@
     <Compile Include="Factories\NodeFactories\OutputNodeFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strategies\NodeProcessStrategies\NToNInputStrategy.cs" />
-    <Compile Include="Strategies\NodeProcessStrategies\NodeProcessStrategy.cs" />
+    <Compile Include="Strategies\NodeProcessStrategies\INodeProcessStrategy.cs" />
     <Compile Include="Strategies\NodeProcessStrategies\NToOneInputStrategy.cs" />
     <Compile Include="Strategies\NodeProcessStrategies\OneToOneInputStrategy.cs" />
     <Compile Include="Strategies\INodeProcessStrategy.cs" />

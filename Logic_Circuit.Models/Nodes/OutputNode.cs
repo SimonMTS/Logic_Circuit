@@ -8,7 +8,7 @@ using System.Windows.Media;
 
 namespace Logic_Circuit.Models.BaseNodes
 {
-    public class OutputNode : INode, ISingleInput
+    public class OutputNode : ISingleInput
     {
         public string Name { get; set; }
         public string Type { get => "PROBE"; set { } }

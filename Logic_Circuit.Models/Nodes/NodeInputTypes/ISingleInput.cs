@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Logic_Circuit.Models.Nodes.NodeInputTypes
 {
-    public interface ISingleInput
+    public interface ISingleInput: INode
     {
         INode Input { get; set; }
     }

@@ -17,11 +17,11 @@ namespace Logic_Circuit.Models.Factories
             return circuits.ContainsKey(name) ? circuits[name] : null;
         }
 
-        public static Circuit GetFromFile(string filePath)
+        public static (bool success, Circuit circuit, string error) GetFromFile(string filePath)
         {
             CircuitParser parser = CircuitParser.GetParser();
 
-            var result = parser.AddFile(filePath);
+            (bool success, string fileName, string error) result = parser.AddFile(filePath);
 
             if (result.success)
             {
@@ -29,7 +29,7 @@ namespace Logic_Circuit.Models.Factories
 
                 if (circuits.ContainsKey(fileName))
                 {
-                    return circuits[fileName];
+                    return (true, circuits[fileName], "");
                 }
 
                 CircuitBuilder circuitBuilder = new CircuitBuilder();
@@ -49,11 +49,11 @@ namespace Logic_Circuit.Models.Factories
                 }
 
                 circuits[fileName] = circuitBuilder.GetCircuit();
-                return circuits[fileName];
+                return (true, circuits[fileName], "");
             }
             else
             {
-                return null;
+                return (false, null, result.error);
             }
         }
     }
