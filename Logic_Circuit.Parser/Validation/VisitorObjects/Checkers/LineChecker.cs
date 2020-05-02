@@ -10,7 +10,7 @@ namespace Logic_Circuit.Parser.Validation.VisitorObjects
 {
     class LineChecker : ValidationVisitor
     {
-        private List<string> NodeNames = new List<string>();
+        private readonly List<string> NodeNames = new List<string>();
 
         public override (bool success, string validationError) VisitConnectionLine(ConnectionLine connectionLine)
         {

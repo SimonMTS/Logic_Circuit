@@ -8,7 +8,7 @@
         Title="Logic_Circuit" Height="450" Width="800">
     <Grid>
         <Grid Margin="10" Grid.Row="1" Grid.Column="1">
-            <Button x:Name="button" Click="SelectFile" Content="Select an input file..." HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="150" Height="22"/>
+            <Button x:Name="button" Click="OnSelectFile" Content="Select an input file..." HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="150" Height="22"/>
             <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="" Height="20" VerticalAlignment="Bottom" Foreground="#F44336" TextAlignment="Right" Margin="0,0,10,0"/>
         </Grid>
     </Grid>

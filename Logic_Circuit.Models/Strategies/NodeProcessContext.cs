@@ -10,16 +10,16 @@ namespace Logic_Circuit.Models.Strategies
 {
     class NodeProcessContext
     {
-        private INodeProcessStrategy _nodeProcessStrategy;
+        private INodeProcessStrategy nodeProcessStrategy;
 
         public NodeProcessContext(INodeProcessStrategy nodeProcessStrategy)
         {
-            this._nodeProcessStrategy = nodeProcessStrategy;
+            this.nodeProcessStrategy = nodeProcessStrategy;
         }
 
         public bool[] ProcessInput(CircuitNode node)
         {
-            return _nodeProcessStrategy.ProcessInput(node);
+            return nodeProcessStrategy.ProcessInput(node);
         }
     }
 }

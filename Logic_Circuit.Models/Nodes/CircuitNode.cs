@@ -65,27 +65,21 @@ namespace Logic_Circuit.Models.BaseNodes
 
         public bool[] Process()
         {
-            if (Inputs.Count <= Circuit.InputNodes.Count)
+            NodeProcessContext context;
+            if (Inputs.Count == 1 && Circuit.OutputNodes.Count == 1)
             {
-                NodeProcessContext context;
-                if (Inputs.Count == 1 && Circuit.OutputNodes.Count == 1)
-                {
-                    context = new NodeProcessContext(new OneToOneInputStrategy());
-                }
-                else if (Circuit.OutputNodes.Count == 1)
-                {
-                    context = new NodeProcessContext(new NToOneInputStrategy());
-                }
-                else
-                {
-                    context = new NodeProcessContext(new NToNInputStrategy());
-                }
-
-                return context.ProcessInput(this);
+                context = new NodeProcessContext(new OneToOneInputStrategy());
+            }
+            else if (Circuit.OutputNodes.Count == 1)
+            {
+                context = new NodeProcessContext(new NToOneInputStrategy());
+            }
+            else
+            {
+                context = new NodeProcessContext(new NToNInputStrategy());
             }
 
-
-            throw new Exception(); // this shouldn't be possible, and exists only for testing // todo remove
+            return context.ProcessInput(this);
         }
 
         public Brush GetDisplayableValue(Brush ifTrue, Brush ifFalse, Brush ifMixed)

@@ -8,21 +8,21 @@ namespace Logic_Circuit.Parser.Validation.VisitorObjects
 {
     class FileAsObject
     {
-        private List<ValidationElement> _elements = new List<ValidationElement>();
+        private List<ValidationElement> elements = new List<ValidationElement>();
 
         public void Attach(ValidationElement element)
         {
-            _elements.Add(element);
+            elements.Add(element);
         }
 
         public void Detach(ValidationElement element)
         {
-            _elements.Remove(element);
+            elements.Remove(element);
         }
 
         public (bool success, string validationError) Accept(ValidationVisitor visitor)
         {
-            foreach (ValidationElement element in _elements)
+            foreach (ValidationElement element in elements)
             {
                 (bool success, string validationError) res;
                 if (!(res = element.Accept(visitor)).success)

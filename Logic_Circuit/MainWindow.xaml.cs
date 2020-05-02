@@ -20,7 +20,7 @@ namespace Logic_Circuit
             InitializeComponent();
         }
 
-        public void SelectFile(object sender, RoutedEventArgs e)
+        public void OnSelectFile(object sender, RoutedEventArgs e)
         {
             controller.SelectFile(this);
         }

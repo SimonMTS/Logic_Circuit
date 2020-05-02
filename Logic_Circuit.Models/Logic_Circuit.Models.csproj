@@ -64,7 +64,7 @@
     <Compile Include="Strategies\NodeProcessStrategies\INodeProcessStrategy.cs" />
     <Compile Include="Strategies\NodeProcessStrategies\NToOneInputStrategy.cs" />
     <Compile Include="Strategies\NodeProcessStrategies\OneToOneInputStrategy.cs" />
-    <Compile Include="Strategies\NodeProcessStrategy.cs" />
+    <Compile Include="Strategies\NodeProcessContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Logic_Circuit.Parser\Logic_Circuit.Parser.csproj">
