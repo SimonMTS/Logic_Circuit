@@ -44,6 +44,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainController.cs" />
     <Compile Include="ResultController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

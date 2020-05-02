@@ -22,7 +22,7 @@ namespace Logic_Circuit
 
         public void SelectFile(object sender, RoutedEventArgs e)
         {
-            controller.SelectFile(this)
+            controller.SelectFile(this);
         }
 
         public void SpawnResultWindow(string name, Circuit circuit)
