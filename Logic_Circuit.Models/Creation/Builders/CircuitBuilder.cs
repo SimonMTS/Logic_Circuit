@@ -12,8 +12,8 @@ namespace Logic_Circuit.Models.Circuits
 {
     public class CircuitBuilder
     {
-        private Circuit circuit = new Circuit();
-        private NodeFactory nodeFactory = new NodeFactory();
+        private readonly Circuit circuit = new Circuit();
+        private readonly NodeFactory nodeFactory = new NodeFactory();
 
         public void AddNode(string nodeName, string nodeType)
         {
@@ -47,6 +47,11 @@ namespace Logic_Circuit.Models.Circuits
 
         public Circuit GetCircuit()
         {
+            if (circuit.Name == null)
+            {
+                throw new InvalidOperationException();
+            }
+
             return circuit;
         }
     }

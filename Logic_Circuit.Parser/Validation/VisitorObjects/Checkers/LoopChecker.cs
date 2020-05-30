@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Logic_Circuit.Parser.Validation.VisitorObjects
@@ -17,21 +18,51 @@ namespace Logic_Circuit.Parser.Validation.VisitorObjects
 
         public override (bool success, string validationError) VisitConnectionLine(ConnectionLine connectionLine)
         {
-            return (true, "");
-        }
-
-        public override (bool success, string validationError) VisitNodeLine(NodeLine nodeLine)
-        {
-            if (!RecurseToInput(nodeLine.Line, nodeLine.Line, WholeFile.Split('\n').Length, 0))
+            if (!RecurseToOutput(connectionLine.Line, connectionLine.Line, WholeFile.Split('\n').Length, 0))
             {
-                return (false, nodeLine.Line + " has itself as input."); ;
+                return (false, "Node: '" + connectionLine.Line.Split(':')[0] + "' leads to an infinite loop.");
             }
 
             return (true, "");
         }
 
-        private bool RecurseToInput(string constantNode, string tmpNode, int maxDepth, int depth)
+        public override (bool success, string validationError) VisitNodeLine(NodeLine nodeLine)
         {
+            return (true, "");
+        }
+
+        private bool RecurseToOutput(string constantNode, string tmpNode, int maxDepth, int depth)
+        {
+            // node is ouptut so return true
+            if (tmpNode.Contains("PROBE;")) return true;
+
+            // node has itself as a dependency so return false
+            string[] parsedTmpNode = Regex.Replace(tmpNode, @"\s+", "").Replace(";", "").Split(':');
+            string[] parsedConstantNode = Regex.Replace(constantNode, @"\s+", "").Replace(";", "").Split(':');
+            if (depth > 0 && parsedTmpNode[0].Equals(parsedConstantNode[0])) return false;
+
+            // we must be stuck in an infinite loop so return false
+            if (depth > maxDepth) return false;
+
+            // node is not input so check children
+            List<string> parentNodes = new List<string>();
+
+            string[] parentNodeNames = parsedTmpNode[1].Split(',');
+            string[] lines = WholeFile.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+            foreach (string parentNodeName in parentNodeNames)
+            {
+                string results = lines.Where(l => l.StartsWith(parentNodeName + ":")).ToList().Last();
+                parentNodes.Add(results);
+            }
+
+            foreach (string parentNode in parentNodes)
+            {
+                if (!RecurseToOutput(constantNode, parentNode, maxDepth, depth + 1))
+                {
+                    return false;
+                }
+            }
+
             return true;
         }
     }

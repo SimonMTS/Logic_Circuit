@@ -41,8 +41,8 @@ namespace Logic_Circuit.Parser.Validation
             (bool success, string validationError) res;
             if (!(res = o.Accept(formatChecker)).success) return res;
             if (!(res = o.Accept(lineChecker)).success) return res;
-            if (!(res = o.Accept(loopChecker)).success) return res;
             if (!(res = o.Accept(hangingConnectionChecker)).success) return res;
+            if (!(res = o.Accept(loopChecker)).success) return res;
 
             return (
                 success: true,
