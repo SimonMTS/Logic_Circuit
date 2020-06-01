@@ -30,6 +30,7 @@ namespace Logic_Circuit.Models.Circuits
         public Circuit Clone()
         {
             CircuitBuilder circuitBuilder = new CircuitBuilder();
+            circuitBuilder.SetName(Name);
 
             foreach (var node in Nodes)
             {

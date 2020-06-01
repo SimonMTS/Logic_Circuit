@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Logic_Circuit.Models.Factories
 {
-    interface INodeFactory
+    public interface INodeFactory
     {
         INode GetNode(string name, string type);
     }

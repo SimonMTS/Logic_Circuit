@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Logic_Circuit.Parser.Validation
 {
-    class Validator
+    public class Validator
     {
         public static (bool success, string validationError) Validate(string content)
         {
@@ -33,8 +33,9 @@ namespace Logic_Circuit.Parser.Validation
                 }
             }
 
-            FormatChecker formatChecker = new FormatChecker();
-            LineChecker lineChecker = new LineChecker();
+            FormatChecker formatChecker = new FormatChecker(content);
+            LineChecker lineChecker = new LineChecker(); 
+                if (InternalCircuitNamesForTests != null) lineChecker.SetInternalCircuitNamesForTests(InternalCircuitNamesForTests);
             LoopChecker loopChecker = new LoopChecker(content);
             HangingConnectionChecker hangingConnectionChecker = new HangingConnectionChecker(content);
 
@@ -49,5 +50,7 @@ namespace Logic_Circuit.Parser.Validation
                 validationError: ""
             );
         }
+
+        public static string[] InternalCircuitNamesForTests = null;
     }
 }

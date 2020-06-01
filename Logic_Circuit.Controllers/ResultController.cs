@@ -24,6 +24,9 @@ namespace Logic_Circuit.Controllers
         {
             this.Circuit = circuit;
 
+            // loop though nodes in order, to create a consistent call order // todo maybe remove
+            foreach (INode node in circuit.Nodes.Values) { node.Process(); }
+
             List<string> doneNames = new List<string>();
             for (int i = 0; i < GetMaxDepth(circuit); i++)
             {
@@ -164,6 +167,8 @@ namespace Logic_Circuit.Controllers
 
         public void OnButtonClick(string nodeName, IResultWin window)
         {
+            Cache.IncUserActionCounter();
+
             INode node = doneNodes.Find(n => n.Name == nodeName);
 
             if (node is InputNode)
@@ -175,7 +180,7 @@ namespace Logic_Circuit.Controllers
 
             if (node is CircuitNode)
             {
-                window.SpawnNew(((CircuitNode)node).Circuit, ((CircuitNode)node).Type);
+                window.SpawnNew(((CircuitNode)node).Circuit, ((CircuitNode)node).Name + " (" + ((CircuitNode)node).Type + ")");
             }
         }
 

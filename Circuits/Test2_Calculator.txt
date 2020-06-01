@@ -1,0 +1,65 @@
+# Full-adder. Deze file bevat een correct circuit
+# 
+#
+#
+# Description of all the nodes
+#
+X0:	    INPUT_LOW;
+X1:	    INPUT_HIGH;
+X2:	    INPUT_LOW;
+X3:	    INPUT_LOW;
+X4:	    INPUT_LOW;
+X5:	    INPUT_LOW;
+X6:	    INPUT_LOW;
+X7:	    INPUT_LOW;
+#
+Y0:	    INPUT_HIGH;
+Y1:	    INPUT_LOW;
+Y2:	    INPUT_LOW;
+Y3:	    INPUT_LOW;
+Y4:	    INPUT_LOW;
+Y5:	    INPUT_LOW;
+Y6:	    INPUT_LOW;
+Y7:	    INPUT_LOW;
+#
+CALC1:   CALC;
+#
+S0:     PROBE;
+S1:     PROBE;
+S2:     PROBE;
+S3:     PROBE;
+S4:     PROBE;
+S5:     PROBE;
+S6:     PROBE;
+S7:     PROBE;
+S8:     PROBE;
+S9:     PROBE;
+S10:    PROBE;
+S11:    PROBE;
+S12:    PROBE;
+S13:    PROBE;
+S14:    PROBE;
+#
+
+#
+#
+# Description of all the edges
+#
+X0:     CALC1;
+X1:     CALC1;
+X2:     CALC1;
+X3:     CALC1;
+X4:     CALC1;
+X5:     CALC1;
+X6:     CALC1;
+X7:     CALC1;
+Y0:     CALC1;
+Y1:     CALC1;
+Y2:     CALC1;
+Y3:     CALC1;
+Y4:     CALC1;
+Y5:     CALC1;
+Y6:     CALC1;
+Y7:     CALC1;
+#
+CALC1:  S0,S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12,S13,S14;

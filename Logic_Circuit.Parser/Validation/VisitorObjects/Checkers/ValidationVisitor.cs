@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logic_Circuit.Parser.Validation.VisitorObjects
 {
-    abstract class ValidationVisitor
+    public abstract class ValidationVisitor
     {
         public abstract (bool success, string validationError) VisitNodeLine(NodeLine nodeLine);
 

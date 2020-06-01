@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Logic_Circuit.Models.Strategies
 {
-    class NodeProcessContext
+    public class NodeProcessContext
     {
         private INodeProcessStrategy nodeProcessStrategy;
 

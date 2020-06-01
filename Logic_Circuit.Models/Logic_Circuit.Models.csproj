@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cache.cs" />
     <Compile Include="Creation\Builders\CircuitBuilder.cs" />
     <Compile Include="Creation\Factories\NodeFactories\NandNodeFactory.cs" />
     <Compile Include="Nodes\NandNode.cs" />

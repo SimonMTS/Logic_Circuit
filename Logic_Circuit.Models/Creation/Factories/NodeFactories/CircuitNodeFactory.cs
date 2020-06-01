@@ -9,12 +9,20 @@ using Logic_Circuit.Parser;
 
 namespace Logic_Circuit.Models.Factories
 {
-    class CircuitNodeFactory : INodeFactory
+    public class CircuitNodeFactory : INodeFactory
     {
         public INode GetNode(string name, string type)
         {
-            string currentDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            currentDir += "../../../../Internal_Circuits/";
+            string currentDir;
+
+            if (DifferentPathForTests == null) {
+                currentDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+                currentDir += "../../../../Internal_Circuits/";
+            }
+            else
+            {
+                currentDir = DifferentPathForTests;
+            }
 
             var circuit = CircuitFactory.GetFromFile(currentDir + type + ".txt");
 
@@ -24,5 +32,7 @@ namespace Logic_Circuit.Models.Factories
                 circuit.circuit
             );
         }
+
+        public static string DifferentPathForTests = null;
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Logic_Circuit.Parser.Validation.VisitorObjects
 {
-    class LineChecker : ValidationVisitor
+    public class LineChecker : ValidationVisitor
     {
         private readonly List<string> NodeNames = new List<string>();
 
@@ -18,10 +18,15 @@ namespace Logic_Circuit.Parser.Validation.VisitorObjects
             var regex = new Regex(@"(^#.*$)|((^\w+):(\s*)(\w+,)*(\w+;$))");
             if (!regex.Match(connectionLine.Line).Success)
             {
-                return (false, "Line doesn't conform to syntax: '" + connectionLine.Line + "'"); ;
+                return (false, "Line doesn't conform to syntax: '" + connectionLine.Line + "'");
             }
 
-            //todo add nodeName validation
+            // nodeName validation
+            string nodeName = connectionLine.Line.Split(':')[0];
+            if (!NodeNames.Contains(nodeName))
+            {
+                return (false, "Node wasn't defined: '" + connectionLine.Line + "'");
+            }
 
             return (true, "");
         }
@@ -32,7 +37,7 @@ namespace Logic_Circuit.Parser.Validation.VisitorObjects
             var regex = new Regex(@"(^#.*$)|((^\w+):(\s*)(\w+,)*(\w+;$))");
             if (!regex.Match(nodeLine.Line).Success)
             {
-                return (false, "Line doesn't conform to syntax: '" + nodeLine.Line + "'"); ;
+                return (false, "Line doesn't conform to syntax: '" + nodeLine.Line + "'");
             }
 
             string type = nodeLine.Line.Split(':')[1].Trim().Replace(";", "");
@@ -41,7 +46,7 @@ namespace Logic_Circuit.Parser.Validation.VisitorObjects
                 !types.Contains(type)
             )
             {
-                return (false, "'" + type + "' is not a valid node type."); ;
+                return (false, "'" + type + "' is not a valid node type.");
             }
 
             NodeNames.Add(nodeLine.Line.Split(':')[0]);
@@ -75,6 +80,10 @@ namespace Logic_Circuit.Parser.Validation.VisitorObjects
             InternalCircuitNames = names.ToArray();
 
             return InternalCircuitNames;
+        }
+
+        public void SetInternalCircuitNamesForTests(string[] names) {
+            InternalCircuitNames = names;
         }
     }
 }

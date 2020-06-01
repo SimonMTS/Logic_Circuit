@@ -7,7 +7,7 @@ using Logic_Circuit.Models.BaseNodes;
 
 namespace Logic_Circuit.Models.Factories
 {
-    class InputNodeFactory : INodeFactory
+    public class InputNodeFactory : INodeFactory
     {
         public INode GetNode(string name, string type)
         {

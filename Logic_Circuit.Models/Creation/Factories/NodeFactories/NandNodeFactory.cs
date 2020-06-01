@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logic_Circuit.Models.Factories.NodeFactories
+namespace Logic_Circuit.Models.Factories
 {
-    class NandNodeFactory : INodeFactory
+    public class NandNodeFactory : INodeFactory
     {
         public INode GetNode(string name, string type)
         {

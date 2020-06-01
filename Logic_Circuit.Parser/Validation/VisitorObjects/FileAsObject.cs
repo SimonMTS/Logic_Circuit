@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logic_Circuit.Parser.Validation.VisitorObjects
 {
-    class FileAsObject
+    public class FileAsObject
     {
         private List<ValidationElement> elements = new List<ValidationElement>();
 

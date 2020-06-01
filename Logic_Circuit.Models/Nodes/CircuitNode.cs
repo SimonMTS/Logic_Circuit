@@ -15,6 +15,7 @@ namespace Logic_Circuit.Models.BaseNodes
     public class CircuitNode : IMultipleInputs
     {
         public string Name { get; set; }
+        public string UID { get; set; }
         public int RealDepth { get => CalcRealDepth(); set { } }
         public string Type { get; set; }
         public Circuit Circuit { get; set; }
@@ -27,10 +28,17 @@ namespace Logic_Circuit.Models.BaseNodes
             Name = name;
             Type = type;
             Circuit = circuit;
+            UID = "name(" + name + ")_UID(" + Cache.GetUniqueInt() + ")";
         }
 
         private int CalcRealDepth()
         {
+            int result;
+            if ((result = Cache.GetDepth(UID)) != int.MinValue)
+            {
+                return result;
+            }
+
             int highestInternal = 0;
             if (Circuit != null)
             {
@@ -48,6 +56,7 @@ namespace Logic_Circuit.Models.BaseNodes
 
             if (Circuit == null) highest++;
 
+            Cache.PushDepth(UID, highestInternal + highest);
             return highestInternal + highest;
         }
 
@@ -65,6 +74,12 @@ namespace Logic_Circuit.Models.BaseNodes
 
         public bool[] Process()
         {
+            bool[] result;
+            if ((result = Cache.Get(UID + getInputState())) != null)
+            {
+                return result;
+            }
+
             NodeProcessContext context;
             if (Inputs.Count == 1 && Circuit.OutputNodes.Count == 1)
             {
@@ -79,7 +94,9 @@ namespace Logic_Circuit.Models.BaseNodes
                 context = new NodeProcessContext(new NToNInputStrategy());
             }
 
-            return context.ProcessInput(this);
+            result = context.ProcessInput(this);
+            Cache.Push(UID + getInputState(), result);
+            return result;
         }
 
         public Brush GetDisplayableValue(Brush ifTrue, Brush ifFalse, Brush ifMixed)
@@ -112,6 +129,18 @@ namespace Logic_Circuit.Models.BaseNodes
                     return ifMixed;
                 }
             }
+        }
+
+        private string getInputState()
+        {
+            string state = "_";
+
+            foreach (INode input in Inputs)
+            {
+                state += input.Process();
+            }
+
+            return state;
         }
 
         public INode Clone()

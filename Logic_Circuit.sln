@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Internal_Circuits\XOR.txt = Internal_Circuits\XOR.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic_Circuit.UnitTests", "Logic_Circuit.UnitTests\Logic_Circuit.UnitTests.csproj", "{A1C4E2BB-41E7-4133-8D9A-A48CB4CA0E73}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{2B08A191-8B3D-4760-A7E4-CAA1A281C2D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B08A191-8B3D-4760-A7E4-CAA1A281C2D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B08A191-8B3D-4760-A7E4-CAA1A281C2D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1C4E2BB-41E7-4133-8D9A-A48CB4CA0E73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1C4E2BB-41E7-4133-8D9A-A48CB4CA0E73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1C4E2BB-41E7-4133-8D9A-A48CB4CA0E73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1C4E2BB-41E7-4133-8D9A-A48CB4CA0E73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

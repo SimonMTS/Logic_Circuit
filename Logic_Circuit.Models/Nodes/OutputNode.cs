@@ -11,6 +11,7 @@ namespace Logic_Circuit.Models.BaseNodes
     public class OutputNode : ISingleInput
     {
         public string Name { get; set; }
+        public string UID { get; set; }
         public string Type { get => "PROBE"; set { } }
         public int RealDepth { get => Input.RealDepth; set { } }
 
@@ -19,19 +20,30 @@ namespace Logic_Circuit.Models.BaseNodes
         public OutputNode(string name)
         {
             Name = name;
+            UID = "name(" + name + ")_UID(" + Cache.GetUniqueInt() + ")";
         }
 
         public bool[] Process()
         {
+            bool[] result;
+            if ((result = Cache.Get(UID)) != null)
+            {
+                return result;
+            }
+
             if (Input is CircuitNode)
             {
                 int ret = ((CircuitNode)Input).RetrievedInputsIncr(this.Name);
 
-                return new bool[] { Input.Process()[ret] };
+                result = new bool[] { Input.Process()[ret] };
+                Cache.Push(UID, result);
+                return result;
             }
             else
             {
-                return new bool[] { Input.Process()[0] };
+                result = new bool[] { Input.Process()[0] };
+                Cache.Push(UID, result);
+                return result;
             }
         }
 

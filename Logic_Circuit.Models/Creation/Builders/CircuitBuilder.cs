@@ -27,6 +27,11 @@ namespace Logic_Circuit.Models.Circuits
 
         public void AddConnection(string inputNode, string outputNode)
         {
+            if (!circuit.Nodes.ContainsKey(inputNode) || !circuit.Nodes.ContainsKey(outputNode))
+            {
+                throw new InvalidOperationException();
+            }
+
             INode input = circuit.Nodes[inputNode];
             INode output = circuit.Nodes[outputNode];
 

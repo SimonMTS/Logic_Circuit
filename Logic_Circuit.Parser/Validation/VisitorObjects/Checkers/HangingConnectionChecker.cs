@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Logic_Circuit.Parser.Validation.VisitorObjects
 {
-    class HangingConnectionChecker : ValidationVisitor
+    public class HangingConnectionChecker : ValidationVisitor
     {
         private readonly string WholeFile;
 
@@ -35,7 +35,7 @@ namespace Logic_Circuit.Parser.Validation.VisitorObjects
             {
                 return (false, nodeName + " has no outputs.");
             }
-
+            
             return (true, "");
         }
     }

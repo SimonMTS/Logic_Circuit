@@ -1,4 +1,5 @@
-﻿using Logic_Circuit.Models.Circuits;
+﻿using Logic_Circuit.Models;
+using Logic_Circuit.Models.Circuits;
 using Logic_Circuit.Models.Factories;
 using Microsoft.Win32;
 using System;
@@ -13,6 +14,8 @@ namespace Logic_Circuit.Controllers
     {
         public void SelectFile(IMainWin win)
         {
+            Cache.IncUserActionCounter();
+
             OpenFileDialog dlg = new OpenFileDialog
             {
                 DefaultExt = ".txt",

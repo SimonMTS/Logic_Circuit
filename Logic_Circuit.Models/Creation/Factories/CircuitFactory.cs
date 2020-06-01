@@ -14,7 +14,7 @@ namespace Logic_Circuit.Models.Factories
 
         public static Circuit GetCircuit(string name)
         {
-            return circuits.ContainsKey(name) ? circuits[name] : null;
+            return circuits.ContainsKey(name) ? circuits[name].Clone() : null;
         }
 
         public static (bool success, Circuit circuit, string error) GetFromFile(string filePath)
@@ -26,11 +26,6 @@ namespace Logic_Circuit.Models.Factories
             if (result.success)
             {
                 string fileName = result.fileName;
-
-                if (circuits.ContainsKey(fileName))
-                {
-                    return (true, circuits[fileName], "");
-                }
 
                 CircuitBuilder circuitBuilder = new CircuitBuilder();
                 circuitBuilder.SetName(fileName);

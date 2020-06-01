@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Logic_Circuit.Models.Strategies.NodeProcessStrategies
 {
-    class OneToOneInputStrategy : INodeProcessStrategy
+    public class OneToOneInputStrategy : INodeProcessStrategy
     {
         public bool[] ProcessInput(CircuitNode node)
         {

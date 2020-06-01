@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Logic_Circuit.Parser.Validation.VisitorObjects
 {
-    class LoopChecker : ValidationVisitor
+    public class LoopChecker : ValidationVisitor
     {
         private readonly string WholeFile;
 

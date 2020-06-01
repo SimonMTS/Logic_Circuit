@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logic_Circuit.Parser.Validation.VisitorObjects
 {
-    class NodeLine : ValidationElement
+    public class NodeLine : ValidationElement
     {
         public string Line { get; private set; }
 

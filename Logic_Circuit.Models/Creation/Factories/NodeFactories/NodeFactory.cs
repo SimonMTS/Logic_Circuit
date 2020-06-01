@@ -1,5 +1,4 @@
 ﻿using Logic_Circuit.Models.BaseNodes;
-using Logic_Circuit.Models.Factories.NodeFactories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Logic_Circuit.Models.Factories
 {
-    class NodeFactory : INodeFactory
+    public class NodeFactory : INodeFactory
     {
         private readonly INodeFactory inputNodeFactory = new InputNodeFactory();
         private readonly INodeFactory outputNodeFactory = new OutputNodeFactory();
