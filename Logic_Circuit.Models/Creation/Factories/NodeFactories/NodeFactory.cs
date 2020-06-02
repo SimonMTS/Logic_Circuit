@@ -1,12 +1,10 @@
 ﻿using Logic_Circuit.Models.BaseNodes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logic_Circuit.Models.Factories
 {
+    /// <summary>
+    /// Determines nodeType, then calls the appropriate factory to produce that node.
+    /// </summary>
     public class NodeFactory : INodeFactory
     {
         private readonly INodeFactory inputNodeFactory = new InputNodeFactory();

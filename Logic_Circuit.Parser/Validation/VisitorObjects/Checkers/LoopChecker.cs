@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Logic_Circuit.Parser.Validation.VisitorObjects
 {
+    /// <summary>
+    /// Checks if there are any loops between this node and the output nodes.
+    /// </summary>
     public class LoopChecker : ValidationVisitor
     {
         private readonly string WholeFile;

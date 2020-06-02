@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Logic_Circuit.Models.BaseNodes;
+﻿using Logic_Circuit.Models.BaseNodes;
 
 namespace Logic_Circuit.Models.Factories
 {
+    /// <summary>
+    /// Returns a new InputNode, with correct value/defaultValue.
+    /// </summary>
     public class InputNodeFactory : INodeFactory
     {
         public INode GetNode(string name, string type)

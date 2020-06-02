@@ -1,13 +1,11 @@
 ﻿using Logic_Circuit.Parser.Validation.VisitorObjects;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logic_Circuit.Parser.Validation
 {
+    /// <summary>
+    /// Validates an input file.
+    /// </summary>
     public class Validator
     {
         public static (bool success, string validationError) Validate(string content)

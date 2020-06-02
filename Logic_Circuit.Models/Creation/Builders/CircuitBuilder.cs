@@ -1,15 +1,13 @@
 ﻿using Logic_Circuit.Models.BaseNodes;
 using Logic_Circuit.Models.Factories;
-using Logic_Circuit.Models.Nodes;
 using Logic_Circuit.Models.Nodes.NodeInputTypes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logic_Circuit.Models.Circuits
 {
+    /// <summary>
+    /// Builds a Circuit line-by-line.
+    /// </summary>
     public class CircuitBuilder
     {
         private readonly Circuit circuit = new Circuit();

@@ -1,16 +1,15 @@
 ﻿using Logic_Circuit.Models.Circuits;
 using Logic_Circuit.Parser;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logic_Circuit.Models.Factories
 {
+    /// <summary>
+    /// Retrieves a Circuit from a file, or from internal cache.
+    /// </summary>
     public class CircuitFactory
     {
-        private static Dictionary<string, Circuit> circuits = new Dictionary<string, Circuit>();
+        private static readonly Dictionary<string, Circuit> circuits = new Dictionary<string, Circuit>();
 
         public static Circuit GetCircuit(string name)
         {

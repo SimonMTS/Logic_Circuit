@@ -1,13 +1,11 @@
 ﻿using Logic_Circuit.Models.Circuits;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace Logic_Circuit.Models.BaseNodes
 {
+    /// <summary>
+    /// Defines properties/functions of every node.
+    /// </summary>
     public interface INode : IClonable<INode>
     {
         string Name { get; set; }

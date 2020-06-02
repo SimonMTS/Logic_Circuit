@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 
 namespace Logic_Circuit.Models.BaseNodes
 {
+    /// <summary>
+    /// A node whose value can be changed by the user, or by a circuitNode if it is contained in a subCircuit.
+    /// </summary>
     public class InputNode : INode
     {
         public string Name { get; set; }

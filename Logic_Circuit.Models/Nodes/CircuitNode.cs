@@ -3,15 +3,14 @@ using Logic_Circuit.Models.Factories;
 using Logic_Circuit.Models.Nodes.NodeInputTypes;
 using Logic_Circuit.Models.Strategies;
 using Logic_Circuit.Models.Strategies.NodeProcessStrategies;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace Logic_Circuit.Models.BaseNodes
 {
+    /// <summary>
+    /// A node that contains a Circuit.
+    /// </summary>
     public class CircuitNode : IMultipleInputs
     {
         public string Name { get; set; }

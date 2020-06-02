@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Logic_Circuit.Parser.Validation.VisitorObjects
 {
+    /// <summary>
+    /// A line from the input file representing the declaration of a node.
+    /// </summary>
     public class NodeLine : ValidationElement
     {
         public string Line { get; private set; }

@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Logic_Circuit.Parser.Validation.VisitorObjects
 {
+    /// <summary>
+    /// An object to represent an input file, contains Lines.
+    /// </summary>
     public class FileAsObject
     {
-        private List<ValidationElement> elements = new List<ValidationElement>();
+        private readonly List<ValidationElement> elements = new List<ValidationElement>();
 
         public void Attach(ValidationElement element)
         {

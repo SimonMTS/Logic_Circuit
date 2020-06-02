@@ -1,14 +1,13 @@
 ﻿using Logic_Circuit.Models.BaseNodes;
 using Logic_Circuit.Models.Nodes.NodeInputTypes;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace Logic_Circuit.Models.Nodes
 {
+    /// <summary>
+    /// The only real logic node, representing a NAND-GATE.
+    /// </summary>
     public class NandNode : IMultipleInputs
     {
         public string Name { get; set; }

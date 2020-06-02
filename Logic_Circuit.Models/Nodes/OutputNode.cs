@@ -1,13 +1,11 @@
 ﻿using Logic_Circuit.Models.Nodes.NodeInputTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace Logic_Circuit.Models.BaseNodes
 {
+    /// <summary>
+    /// A node that defines the outputs of a circuit.
+    /// </summary>
     public class OutputNode : ISingleInput
     {
         public string Name { get; set; }

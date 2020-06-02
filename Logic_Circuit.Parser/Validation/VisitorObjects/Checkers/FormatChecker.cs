@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logic_Circuit.Parser.Validation.VisitorObjects
 {
+    /// <summary>
+    /// Checks the format of the file, mainly the placement of the seperation newline.
+    /// </summary>
     public class FormatChecker : ValidationVisitor
     {
         private readonly string WholeFile;

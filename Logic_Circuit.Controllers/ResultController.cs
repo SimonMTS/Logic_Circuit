@@ -1,17 +1,15 @@
 ﻿using Logic_Circuit.Models;
 using Logic_Circuit.Models.BaseNodes;
-using Logic_Circuit.Models.Nodes;
 using Logic_Circuit.Models.Nodes.NodeInputTypes;
 using Logic_Circuit.Models.Circuits;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace Logic_Circuit.Controllers
 {
+    /// <summary>
+    /// Manages a ResultWindow.
+    /// </summary>
     public class ResultController
     {
         #region draw

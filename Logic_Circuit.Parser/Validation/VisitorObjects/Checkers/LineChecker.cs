@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Logic_Circuit.Parser.Validation.VisitorObjects
 {
+    /// <summary>
+    /// Checks the syntax of a line, and existence of used nodeTypes.
+    /// </summary>
     public class LineChecker : ValidationVisitor
     {
         private readonly List<string> NodeNames = new List<string>();

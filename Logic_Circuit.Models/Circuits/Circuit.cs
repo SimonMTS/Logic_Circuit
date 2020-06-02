@@ -1,15 +1,12 @@
 ﻿using Logic_Circuit.Models.BaseNodes;
-using Logic_Circuit.Models.Nodes;
 using Logic_Circuit.Models.Nodes.NodeInputTypes;
-using Logic_Circuit.Parser;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logic_Circuit.Models.Circuits
 {
+    /// <summary>
+    /// Contains input, output, and internal nodes.
+    /// </summary>
     public class Circuit : IClonable<Circuit>
     {
         public string Name { get; set; }
@@ -39,11 +36,11 @@ namespace Logic_Circuit.Models.Circuits
 
             foreach (var node in Nodes)
             {
-                if (node is ISingleInput)
+                if (node.Value is ISingleInput)
                 {
                     circuitBuilder.AddConnection(((ISingleInput)node.Value).Input.Name, node.Value.Name);
                 }
-                else if (node is IMultipleInputs)
+                else if (node.Value is IMultipleInputs)
                 {
                     foreach (var inputNode in ((IMultipleInputs)node.Value).Inputs)
                     {

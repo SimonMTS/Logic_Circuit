@@ -1,12 +1,10 @@
 ﻿using Logic_Circuit.Models.BaseNodes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logic_Circuit.Models.Strategies.NodeProcessStrategies
 {
+    /// <summary>
+    /// Defines a function for processing subCircuits, in CircuitNodes.
+    /// </summary>
     public interface INodeProcessStrategy
     {
         bool[] ProcessInput(CircuitNode node);

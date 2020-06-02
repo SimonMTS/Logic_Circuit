@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Logic_Circuit.Models
 {
+    /// <summary>
+    /// Caches results of Process and Depth, after each user interaction.
+    /// </summary>
     public static class Cache
     {
         private static int userActionCounter = 0;

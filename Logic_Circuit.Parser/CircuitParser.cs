@@ -1,15 +1,13 @@
 ﻿using Logic_Circuit.Parser.Validation;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Logic_Circuit.Parser
 {
+    /// <summary>
+    /// A singleton that exposes functions to read (relevant) lines of an input file, one-by-one.
+    /// </summary>
     public class CircuitParser
     {
         private static CircuitParser ParserInstance = null;

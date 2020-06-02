@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Logic_Circuit.Models.BaseNodes;
-using Logic_Circuit.Models.Circuits;
-using Logic_Circuit.Parser;
+﻿using Logic_Circuit.Models.BaseNodes;
 
 namespace Logic_Circuit.Models.Factories
 {
+
+    /// <summary>
+    /// Returns a new CircuitNode, with a Circuit retrieved by CircuitFactory.
+    /// </summary>
     public class CircuitNodeFactory : INodeFactory
     {
         public INode GetNode(string name, string type)

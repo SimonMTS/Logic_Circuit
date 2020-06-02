@@ -3,13 +3,12 @@ using Logic_Circuit.Models.Circuits;
 using Logic_Circuit.Models.Factories;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logic_Circuit.Controllers
 {
+    /// <summary>
+    /// Allows user to select a file to open in a ResultWindow.
+    /// </summary>
     public class MainController
     {
         public void SelectFile(IMainWin win)
