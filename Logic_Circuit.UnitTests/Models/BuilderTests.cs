@@ -1,4 +1,5 @@
 ﻿using System;
+using Logic_Circuit.Models;
 using Logic_Circuit.Models.Circuits;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -40,14 +41,17 @@ namespace Logic_Circuit.UnitTests.Models
                 
             Circuit xor = circuitBuilder.GetCircuit();
 
+            Cache.IncUserActionCounter();
             xor.InputNodes["A"].Value = false;
             xor.InputNodes["B"].Value = false;
             Assert.AreEqual(false, xor.OutputNodes["C"].Process()[0]);
 
+            Cache.IncUserActionCounter();
             xor.InputNodes["A"].Value = true;
             xor.InputNodes["B"].Value = false;
             Assert.AreEqual(true, xor.OutputNodes["C"].Process()[0]);
 
+            Cache.IncUserActionCounter();
             xor.InputNodes["A"].Value = true;
             xor.InputNodes["B"].Value = true;
             Assert.AreEqual(false, xor.OutputNodes["C"].Process()[0]);

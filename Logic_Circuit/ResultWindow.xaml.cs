@@ -26,18 +26,38 @@ namespace Logic_Circuit
     /// </summary>
     public partial class ResultWindow : Window, IResultWin
     {
-        private readonly ResultController controller = new ResultController();
+        private bool _tryToDrawNiceLines = true;
+        public bool TryToDrawNiceLines
+        {
+            get { return _tryToDrawNiceLines; }
+            set {
+                _tryToDrawNiceLines = value;
+                ClearCanvas();
+                controller.DrawButtons(circuit, this);
+                controller.DrawLines(this);
+            }
+        }
 
-        public ResultWindow(Circuit circuit)
+        private readonly ResultController controller = new ResultController();
+        private readonly Circuit circuit;
+
+        public ResultWindow(Circuit _circuit)
         {
             InitializeComponent();
+
+            circuit = _circuit;
+
+            if (_circuit.Nodes.Count > 30)
+            {
+                _tryToDrawNiceLines = false;
+            }
 
             depthCounter = new int[circuit.Nodes.Count];
 
             Canvas.Width = 10;
             Canvas.Height = 10;
 
-            controller.DrawButtons(circuit, this);
+            controller.DrawButtons(_circuit, this);
         }
 
         private void Canvas_Loaded(object sender, RoutedEventArgs e)
@@ -99,8 +119,18 @@ namespace Logic_Circuit
             Point startPoint = new Point(btn1Point.X + inputbtn.ActualWidth, btn1Point.Y + inputbtn.ActualHeight / 2);
             Point endPoint = new Point(btn2Point.X, btn2Point.Y + outputbtn.ActualHeight / 2);
 
-            int offsetX = ((int)((ValueTuple<int, int>)inputbtn.Tag).Item1) * 6;
-            int offsetY = ((int)((ValueTuple<int, int>)inputbtn.Tag).Item2 + 1) * (((int)((ValueTuple<int, int>)inputbtn.Tag).Item1) * 4);
+            int offsetX;
+            int offsetY;
+            if (TryToDrawNiceLines)
+            {
+                offsetX = ((int)((ValueTuple<int, int>)inputbtn.Tag).Item1) * 6;
+                offsetY = ((int)((ValueTuple<int, int>)inputbtn.Tag).Item2 + 1) * (((int)((ValueTuple<int, int>)inputbtn.Tag).Item1) * 4);
+            }
+            else
+            {
+                offsetX = 0;
+                offsetY = 0;
+            }
 
             if (offsetY >= 40)
             {
